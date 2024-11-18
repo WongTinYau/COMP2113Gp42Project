@@ -5,4 +5,4 @@ void main_menu();
 void level_selection_menu();
 void help_menu();
 
-#endif
+#endif //MAIN_H

@@ -4,4 +4,4 @@
 void cutsceneO1();
 void cutsceneO2();
 
-#endif
+#endif //CUTSCENE_H

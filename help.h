@@ -4,4 +4,4 @@
 void GameplayHelp();
 void ItemsHelp();
 
-#endif
+#endif //HELP_H
