@@ -1,4 +1,5 @@
 #include <string>
+#include "Entity.h"
 #include "Inventory.h"
 
 using namespace std;
@@ -7,7 +8,7 @@ Entity::Entity(string displayName, int maxLives, int inventorySize) {
     m_displayName = displayName;
     m_maxLives = maxLives;
     m_currentLives = maxLives;
-    m_inventory = Inventory(inventorySize);
+    m_inventory = new Inventory(inventorySize);
 }
 
 int Entity::damage(int amount) {
@@ -50,5 +51,5 @@ void Entity::reducePunishedRounds(int amount) {
 }
 
 Inventory& Entity::getInventory() {
-    return m_inventory;
+    return *m_inventory;
 }

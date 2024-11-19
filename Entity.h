@@ -2,7 +2,8 @@
 #define ENTITY_H
 
 #include <string>
-#include "Inventory.h"
+
+class Inventory;
 
 class Entity {
 public:
@@ -21,8 +22,8 @@ private:
     std::string m_displayName;
     int m_maxLives;
     int m_currentLives;
-    int m_punishRounds;
-    Inventory m_inventory;
+    int m_punishRounds = 0;
+    Inventory* m_inventory;
 };
 
 #endif //ENTITY_H

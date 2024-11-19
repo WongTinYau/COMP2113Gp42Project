@@ -7,45 +7,50 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <utility>
 #include "Shotgun.h"
 #include "Entity.h"
+#include "Item.h"
+#include "Inventory.h"
+#include "Shell.h"
 using namespace std;
 
 void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
     cout << "Player lives: " << player.getCurrentLives() << " | Dealer lives: " << dealer.getCurrentLives() << endl;
-    cout << " | Remaining shells: " << shotgun.getRemainingShells() << " | Remaining live shells: " << shotgun.getRemainingLiveShells() << endl;
+    cout << "Remaining shells: " << shotgun.getRemainingShells() << " | Remaining live shells: " << shotgun.getRemainingLiveShells() << endl;
 }
 
 bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& dealer) {
-    Shell currentShell = shotgun.shoot();
-    
     if (isPlayerTurn) {
-        char choice;
         cout << "It is now your turn, you have the following items:" << endl;
         vector<Item> items = player.getInventory().getItems();
         for(int i = 0; i != items.size(); i++) {
             cout << "Slot " << i << ": " << toString(items[i].getType()) << endl;;
         }
         cout << "Choose your action: use item (u), shoot yourself (s) or shoot the Dealer (d): ";
+        char choice;
         cin >> choice;
 
         if (choice == 's') {
+            pair<Shell, int> result = shotgun.shoot();
             cout << "You pull the trigger on yourself...\n";
-            if (currentShell == Shell::LIVE) {
+            if (result.first == Shell::LIVE) {
                 cout << "BANG! You lose a life.\n";
-                player.damage(1);
+                player.damage(result.second);
             } else {
                 cout << "Click. It's a blank.\n";
             }
         } else if (choice == 'd') {
+            pair<Shell, int> result = shotgun.shoot();
             cout << "You pull the trigger on the Dealer...\n";
-            if (currentShell == Shell::LIVE) {
+            if (result.first == Shell::LIVE) {
                 cout << "BANG! The Dealer loses a life.\n";
-                dealer.damage(1);
+                dealer.damage(result.second);
             } else {
                 cout << "Click. It's a blank.\n";
             }
         } else if (choice == 'u') {
+            cout << "Choose your desired item's slot: ";
             int slotNumber;
             cin >> slotNumber;
 
@@ -58,12 +63,7 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
                 if (response.first) {
                     player.getInventory().resetSlot(slotNumber);
                 }
-
-                if (dealer.getPunishedRounds() > 0) {
-                    dealer.reducePunishedRounds(1);
-                    return true;
-                } else return false;
-
+                return true;
             } else {
                 cout << "Invalid slot number. You lose your turn." << endl;;
             }
@@ -81,19 +81,21 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
         int choice = dist(gen);
 
         if (choice == 0) {
+            pair<Shell, int> result = shotgun.shoot();
             cout << "The Dealer pulls the trigger on themselves...\n";
-            if (currentShell == Shell::LIVE) {
+            if (result.first == Shell::LIVE) {
                 cout << "BANG! The Dealer loses a life.\n";
-                dealer.damage(1);
+                dealer.damage(result.second);
             } else {
                 cout << "Click. It's a blank.\n";
             }
 
         } else if (choice == 1) {
+            pair<Shell, int> result = shotgun.shoot();
             cout << "The Dealer pulls the trigger on you...\n";
-            if (currentShell == Shell::LIVE) {
+            if (result.first == Shell::LIVE) {
                 cout << "BANG! You lose a life.\n";
-                player.damage(1);
+                player.damage(result.second);
             } else {
                 cout << "Click. It's a blank.\n";
             }
@@ -111,7 +113,7 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
                 if (response.first) {
                     dealer.getInventory().resetSlot(slotNumber);
                 }
-
+                return false;
             } else {
                 cout << "Dealer has no items to use. Skipping turn." << endl;
             }
@@ -130,7 +132,7 @@ void RussianDudeLevel(){
     Entity* player = new Entity("Player", 2, 4);
     Entity* dealer = new Entity("Dealer", 2, 4);
     player->getInventory().addRandomItems(4);
-    player->getInventory().addRandomItems(4);
+    dealer->getInventory().addRandomItems(4);
 
     bool isPlayerTurn = true;
     while (!shotgun->isEmpty() && player->getCurrentLives() > 0 && dealer->getCurrentLives() > 0) {

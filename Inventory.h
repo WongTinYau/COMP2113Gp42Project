@@ -3,7 +3,8 @@
 
 #include <vector>
 #include "Item.h"
-#include "ItemType.h" 
+
+class Item;
 
 class Inventory {
 public:
@@ -14,7 +15,7 @@ public:
     void resetSlot(int slot);
     bool isFull();
     Item getSlotItem(int slot);
-    vector<Item> getItems();
+    std::vector<Item> getItems();
 private:
     int m_maxSlots;
     std::vector<Item> m_items;

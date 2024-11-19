@@ -1,6 +1,8 @@
 #ifndef ITEMTYPE_H
 #define ITEMTYPE_H
 
+#include <string>
+
 enum class ItemType {
     SAW,
     MAGNIFYING_GLASS,
@@ -10,16 +12,6 @@ enum class ItemType {
     MAGNET
 };
 
-std::string toString(ItemType type) {
-    switch (type) {
-        case ItemType::SAW: return "Saw";
-        case ItemType::MAGNIFYING_GLASS: return "Magnifying Glass";
-        case ItemType::INVERTER: return "Inverter";
-        case ItemType::HEART: return "Heart";
-        case ItemType::HANDCUFF: return "Handcuff";
-        case ItemType::MAGNET: return "Magnet";
-        default: return "Unknown";
-    }
-}
+std::string toString(ItemType type);
 
 #endif //ITEMTYPE_H

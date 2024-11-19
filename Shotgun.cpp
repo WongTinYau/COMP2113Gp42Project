@@ -1,6 +1,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <utility>
 #include "Shell.h"
 #include "Shotgun.h"
 
@@ -34,10 +35,12 @@ bool Shotgun::isEmpty() {
     return m_shotgun.empty();
 }
 
-Shell Shotgun::shoot() {
+pair<Shell, int> Shotgun::shoot() {
     Shell shell = m_shotgun.back();
     m_shotgun.pop_back();
-    return shell;
+    int final_damage = getUpcomingDamage();
+    m_tempDamage = 0;
+    return make_pair(shell, final_damage);
 }
 
 void Shotgun::increaseTempDamage(int tempDamage) {
@@ -46,7 +49,6 @@ void Shotgun::increaseTempDamage(int tempDamage) {
 
 int Shotgun::getUpcomingDamage() {
     int finalDamage = m_damage + m_tempDamage;
-    m_tempDamage = 0;
     return finalDamage;
 }
 

@@ -5,6 +5,7 @@
 #include "ItemType.h"
 #include "Entity.h"
 #include "Shotgun.h"
+#include "Inventory.h"
 
 using namespace std;
 
@@ -49,13 +50,13 @@ pair<bool, string> Item::use(Entity &user, Entity &target, Shotgun &gun) {
             if(user.getInventory().isFull()) {
                 return make_pair(false, "Inventory full!");
             }
-            int maxSlots = target.getInventory().getItemCount();
-            if (maxSlots <= 0) {
-                return make_pair(false, "Error Occured! Illegal inventroy max slots");
+            int itemCount = target.getInventory().getItemCount();
+            if (itemCount <= 0) {
+                return make_pair(false, "The dealer does not have any items!" + itemCount);
             }
             random_device dev;
             mt19937 rng(dev()); 
-            uniform_int_distribution<mt19937::result_type> dist(0, maxSlots - 1);
+            uniform_int_distribution<mt19937::result_type> dist(0, itemCount - 1);
 
             int random_slot = dist(rng);
             Item item = target.getInventory().getSlotItem(random_slot);

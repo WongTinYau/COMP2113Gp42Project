@@ -2,6 +2,7 @@
 #define SHOTGUN_H
 
 #include <vector>
+#include <utility>
 #include <algorithm>
 #include <random>
 #include "Shell.h"
@@ -12,7 +13,7 @@ public:
     int getRemainingLiveShells();
     int getRemainingShells();
     bool isEmpty();
-    Shell shoot();
+    std::pair<Shell, int> shoot();
     void increaseTempDamage(int damage);
     int getUpcomingDamage();
     Shell getUpcomingShell();
