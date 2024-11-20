@@ -10,8 +10,12 @@ Inventory::Inventory(int maxSlots)
     m_maxSlots = maxSlots;
 }
 
-void Inventory::addItem(Item item) {
-    m_items.push_back(item);
+bool Inventory::addItem(Item item) {
+    if(isFull()) return false;
+    else {
+      m_items.push_back(item);
+      return true;
+    }
 }
 
 void Inventory::addRandomItems(int itemCount) {
