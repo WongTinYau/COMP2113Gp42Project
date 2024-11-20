@@ -16,6 +16,7 @@ public:
     int getPunishedRounds();
     void reducePunishedRounds(int amount);
     Inventory& getInventory();
+    int getInventorySize();
     virtual ~Entity() = default;
 
 private:
