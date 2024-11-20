@@ -15,7 +15,7 @@
 #include "Shell.h"
 using namespace std;
 
-void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
+static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
     cout << "Player lives: " << player.getCurrentLives() << " | Dealer lives: " << dealer.getCurrentLives() << endl;
     cout << "Remaining shells: " << shotgun.getRemainingShells() << " | Remaining live shells: " << shotgun.getRemainingLiveShells() << endl;
 }
