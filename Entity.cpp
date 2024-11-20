@@ -54,6 +54,3 @@ Inventory& Entity::getInventory() {
     return *m_inventory;
 }
 
-int Entity::getInventorySize() {
-    return inventorySize;
-}
