@@ -51,3 +51,7 @@ vector<Item> Inventory::getItems() {
 Item Inventory::getSlotItem(int slot) {
     return m_items[slot];
 }
+
+int Inventory::getMaxInventorySlots() {
+    return m_maxSlots;
+}
