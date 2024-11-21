@@ -15,13 +15,14 @@
 using namespace std;
 
 static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
+    cout << "------------------------------------------------------------\n";
     cout << "Player lives: " << player.getCurrentLives() << "/" << player.getMaxLives() << " | Dealer lives: " << dealer.getCurrentLives() << "/" << dealer.getMaxLives() << endl;
     cout << "Remaining shells: " << shotgun.getRemainingShells() << " | Remaining live shells: " << shotgun.getRemainingLiveShells() << endl;
 }
 
 int dealerChoose(Entity& dealer, int slotNumber, int chances) {
     if (slotNumber == -1) {
-        if (chances <= (28 + dealer.getCurrentLives() * 2) ) { // 30 - 44% 
+        if (chances <= (6 + dealer.getCurrentLives() * 3) ) { // 9 - 30%
             return 0;
         }
         return 1;
@@ -42,31 +43,49 @@ int dealerUse(Entity& dealer, Entity& player, vector<Item>& dealerItemQueue, int
     if (dealerItemQueue.empty() and dealerNextChoice == -1) {
         for (int i = 0; i < itemList.size(); i++) {
             Item item = itemList[i];
-            if (item.getType() == ItemType::HEART and dealer.getCurrentLives() < dealer.getMaxLives()) {
+
+            switch (item.getType()) {
+            case ItemType::HEART:
+                if (dealer.getCurrentLives() < dealer.getMaxLives()) {
+                    return i;
+                }
+                break;
+
+            case ItemType::MAGNET:
+                if (!dealer.getInventory().isFull() && player.getInventory().getItemCount() > 0) {
+                    return i;
+                }
+                break;
+
+            case ItemType::HANDCUFF:
                 return i;
-            }
-            else if (item.getType() == ItemType::MAGNET and !dealer.getInventory().isFull() and player.getInventory().getItemCount() > 0) {
-                return i;
-            }
-            else if (item.getType() == ItemType::HANDCUFF) {
-                return i;
-            }
-            else if (item.getType() == ItemType::MAGNIFYING_GLASS and chances < 80 and chances > 20) {
-                return i;
-            }
-            else if (item.getType() == ItemType::SAW and chances > 70) {
-                dealerNextChoice = -3;
-                return i;
-            }
-            else if (item.getType() == ItemType::INVERTER and chances < 20) {
-                dealerNextChoice = -3;
-                return i;
-            }
-            else {
+
+            case ItemType::MAGNIFYING_GLASS:
+                if (chances < 80 && chances > 20) {
+                    return i;
+                }
+                break;
+
+            case ItemType::SAW:
+                if (chances > 70) {
+                    dealerNextChoice = -3;
+                    return i;
+                }
+                break;
+
+            case ItemType::INVERTER:
+                if (chances < 20) {
+                    dealerNextChoice = -3;
+                    return i;
+                }
+                break;
+
+            default:
                 cout << "The Dealer encountered an unknown item, gonna use it anyway.\n";
                 return i;
             }
         }
+        return dealerNextChoice;
     }
     else if (!dealerItemQueue.empty() and dealerNextChoice == -1) {
         while (!dealerItemQueue.empty()) {
@@ -85,13 +104,15 @@ int dealerUse(Entity& dealer, Entity& player, vector<Item>& dealerItemQueue, int
 
 bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& dealer, vector<Item>& dealerItemQueue, int& dealerNextChoice) {
     if (isPlayerTurn) {
-
-        cout << "It is now your turn, you have the following items:\n";
-        vector<Item> items = player.getInventory().getItems();
-        for (int i = 0; i != items.size(); i++) {
-            cout << "Slot " << i << ": " << toString(items[i].getType()) << endl;
+        if (!player.getInventory().getItemCount() == 0) {
+            cout << "It is now your turn, you have the following items:\n";
+            vector<Item> items = player.getInventory().getItems();
+            for (int i = 0; i != items.size(); i++) {
+                cout << "Slot " << i << ": " << toString(items[i].getType()) << endl;
+            }
+            cout << "You can have at most " << player.getInventory().getMaxInventorySlots() << " items.\n";
         }
-        cout << "You can have at most " << player.getInventory().getMaxInventorySlots() << " items.\n";
+        else cout << "You have no items.\n";
         cout << "The Dealer have " << dealer.getInventory().getItemCount() << "/" << dealer.getInventory().getMaxInventorySlots() << " items.\n";
 
         cout << "Choose your action: use item (u), shoot yourself (s), shoot the Dealer (d) or quit game(q): ";
@@ -233,8 +254,8 @@ void CppDemonLevel(){
 
     bool gameOnGoing = true;
     Shotgun* shotgun = nullptr;
-    Entity* player = nullptr;
-    Entity* dealer = nullptr;
+    Entity* player = new Entity("Player", 6, 8);
+    Entity* dealer = new Entity("Dealer", 8, 8);
     while (gameOnGoing) {
         random_device rd;
         mt19937 gen(rd());
@@ -242,8 +263,6 @@ void CppDemonLevel(){
         int StartingLiveRound = dist1(gen);
 
         shotgun = new Shotgun(StartingLiveRound, 9, 1);
-        player = new Entity("Player", 6, 8);
-        dealer = new Entity("Dealer", 8, 8);
         player->getInventory().addRandomItems(4);
         dealer->getInventory().addRandomItems(4);
 
@@ -281,3 +300,4 @@ void CppDemonLevel(){
     cin >> command;
     main_menu();
 }
+
