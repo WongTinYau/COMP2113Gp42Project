@@ -21,5 +21,6 @@ void updateRussianWin(Statistics&stat);
 void updateRussianLost(Statistics&stat);
 void updateDemonWin(Statistics&stat);
 void updateDemonLost(Statistics&stat);
+void TimeStat(Statistics&stat, time_t time);
 
 #endif // STATS_H
