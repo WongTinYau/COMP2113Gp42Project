@@ -85,6 +85,7 @@ void main_menu(){
     cout << "Enter (4) for Statistics" << endl;
     cout << "Enter (5) for HARD RESET" << endl;
     cout << "Enter (q) to Quit"<< endl;
+    time_t startTime = time(nullptr);
     string userInput;
     bool validInput = false;
     while (validInput == false) {
@@ -110,6 +111,7 @@ void main_menu(){
             hardReset();
         }
         else if (userInput == "q" || userInput == "(q)" || userInput == "Q"){
+            TimeStat(stat,startTime);
             exit(0);
         }
         else {
