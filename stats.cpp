@@ -63,6 +63,13 @@ void updateDemonLost(Statistics&stat){
     SaveStat(stat);
 }
 
+void TimeStat(Statistics&stat, time_t time){
+    time_t endtime = std::time(nullptr);
+    int Timeplay =static_cast <int> (endtime-time);
+    stat.totalTimePlayed+=Timeplay;
+    SaveStat(stat);
+}
+
 void stats(){
     cout << "Game Statstics" << endl;
     FindStat();
