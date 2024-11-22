@@ -12,6 +12,7 @@
 #include "main.h"
 #include "CppDemonLevel.h"
 #include "ItemType.h"
+#include "stats.h"
 using namespace std;
 
 static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
@@ -276,10 +277,12 @@ void CppDemonLevel(){
 
         if (player->getCurrentLives() <= 0) {
             cout << "You lost all your lives. Game over.\n";
+            updateDemonLost(stat);
             gameOnGoing = false;
         }
         else if (dealer->getCurrentLives() <= 0) {
             cout << "The Dealer lost all their lives. You win!\n";
+            updateDemonWin(stat);
             gameOnGoing = false;
         }
         else {
@@ -288,6 +291,7 @@ void CppDemonLevel(){
             cout << "New round commencing.\n";
             dealerItemQueue = {};
             dealerNextChoice = -1;// clear after each round
+            FairGame(stat);
         }
     }
     delete shotgun;
