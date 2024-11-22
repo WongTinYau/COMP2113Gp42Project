@@ -35,6 +35,30 @@ void hardReset(){
     cout<<"All Stats and save data have been reset.";
 }
 
+void updateRussianWin(Statistics&stat){
+    stat.TotalGamesPlay++;
+    stat.RussianWon++;
+    SaveStat(stat);
+}
+
+void updateRussianLost(Statistics&stat){
+    stat.TotalGamesPlay++;
+    stat.RussianLosses++;
+    SaveStat(stat);
+}
+
+void updateDemonWin(Statistics&stat){
+    stat.TotalGamesPlay++;
+    stat.DemonWin++;
+    SaveStat(stat);
+}
+
+void updateDemonLost(Statistics&stat){
+    stat.TotalGamesPlay++;
+    stat.DemonLosses++;
+    SaveStat(stat);
+}
+
 void stats(){
     cout << "Game Statstics" << endl;
     FindStat();
