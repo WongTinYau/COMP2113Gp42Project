@@ -14,4 +14,9 @@ void SaveStat(Statistics&stat);
 void FindStat();
 void hardReset();
 void stats();
+void updateRussianWin(Statistics&stat);
+void updateRussianLost(Statistics&stat);
+void updateDemonWin(Statistics&stat);
+void updateDemonLost(Statistics&stat);
+
 #endif // STATS_H
