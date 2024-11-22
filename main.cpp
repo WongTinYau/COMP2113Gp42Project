@@ -106,8 +106,8 @@ void main_menu(){
             stats();
         }
         else if (userInput == "5" || userInput == "(5)"){
-            cout << "This feature is broken now, sorry!" << endl;
-            // Reset mechanics to be implemented
+            validInput = true;
+            hardReset();
         }
         else if (userInput == "q" || userInput == "(q)" || userInput == "Q"){
             exit(0);
