@@ -2,18 +2,21 @@
 #define STATS_H
 
 struct Statistics{
-    int TotalGamesPlay =0;
-    int RussianWon =0;
-    int RussianLosses =0;
-    int DemonWin =0;
-    int DemonLosses =0;
-    int totalTimePlayed =0; //in seconds
+    int TotalGamesPlay ;
+    int RussianWon ;
+    int RussianLosses ;
+    int DemonWin ;
+    int DemonLosses ;
+    int totalTimePlayed ; //in seconds
 };
+
+Statistics stat ={0,0,0,0,0,0};
 
 void SaveStat(Statistics&stat);
 void FindStat();
 void hardReset();
 void stats();
+void FairGame(Statistics&stat);
 void updateRussianWin(Statistics&stat);
 void updateRussianLost(Statistics&stat);
 void updateDemonWin(Statistics&stat);
