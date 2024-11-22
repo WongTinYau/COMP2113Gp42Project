@@ -35,6 +35,10 @@ void hardReset(){
     cout<<"All Stats and save data have been reset.";
 }
 
+void FairGame(Statistics&stat){
+    stat.TotalGamesPlay++;
+}
+
 void updateRussianWin(Statistics&stat){
     stat.TotalGamesPlay++;
     stat.RussianWon++;
