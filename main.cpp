@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <ctime>
 #include "help.h"
 #include "RussianDudeLevel.h"
 #include "CppDemonLevel.h"
@@ -85,6 +86,7 @@ void main_menu(){
     cout << "Enter (4) for Statistics" << endl;
     cout << "Enter (5) for HARD RESET" << endl;
     cout << "Enter (q) to Quit"<< endl;
+    Statistics stat(0,0,0,0,0,0);
     time_t startTime = time(nullptr);
     string userInput;
     bool validInput = false;

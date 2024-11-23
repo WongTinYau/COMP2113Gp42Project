@@ -1,8 +1,9 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 #include <fstream>
-#include"stats.h"
-#include"main.h"
+#include <ctime>
+#include "stats.h"
+#include "main.h"
 using namespace std;
 
 void SaveStat(const Statistics&stat){
@@ -16,9 +17,9 @@ void SaveStat(const Statistics&stat){
     fout<<"Losses"<<stat.DemonLosses<<"\n";
     fout<<"Winning percentage (Russian Dude Mode): "<<(stat.RussianWon/stat.TotalGamesPlay*100)<<"%"<<"\n";
     fout<<"Losing percentage (Russian Dude mode): "<<(stat.RussianLosses/stat.TotalGamesPlay*100)<<"%"<<"\n";
-    fout<<"Winning percentage (Russian Dude Mode): "<<(stat.DemonWin/stat.TotalGamesPlay*100)<<"%"<<"\n";
-    fout<<"Losing percentage (Russian Dude Mode): "<<(stat.DemonLosses/stat.TotalGamesPlay*100)<<"%"<<"\n";
-    fout<<"Total TIme played: "<<(stat.totalTimePlayed/3600)<<"hour"<<(stat.totalTimePlayed/60)<<"minutes"<<"\n";
+    fout<<"Winning percentage (C++ Demon Mode): "<<(stat.DemonWin/stat.TotalGamesPlay*100)<<"%"<<"\n";
+    fout<<"Losing percentage (C++ Demon Mode): "<<(stat.DemonLosses/stat.TotalGamesPlay*100)<<"%"<<"\n";
+    fout<<"Total Time played: "<<(stat.totalTimePlayed/3600)<<"hour"<<(stat.totalTimePlayed/60)<<"minutes"<<"\n";
     fout.close();
 }
 
@@ -71,7 +72,7 @@ void TimeStat(Statistics&stat, time_t time){
 }
 
 void stats(){
-    cout << "Game Statstics" << endl;
+    cout << "Game Statistics" << endl;
     FindStat();
     // TBA
     string Input;

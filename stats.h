@@ -8,9 +8,17 @@ struct Statistics{
     int DemonWin ;
     int DemonLosses ;
     int totalTimePlayed ; //in seconds
-};
 
-Statistics stat ={0,0,0,0,0,0};
+    //Constructor
+    Statistics(int a, int b, int c, int d, int e, int f){
+        TotalGamesPlay = a;
+        RussianWon = b;
+        RussianLosses = c;
+        DemonWin = d;
+        DemonLosses = e;
+        totalTimePlayed = f;
+    }
+};
 
 void SaveStat(Statistics&stat);
 void FindStat();
