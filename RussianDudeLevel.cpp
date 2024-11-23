@@ -13,7 +13,7 @@
 #include "Item.h"
 #include "Inventory.h"
 #include "Shell.h"
-#include "stats.h"
+#include "newstats.h"
 using namespace std;
 
 static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
@@ -141,16 +141,17 @@ void RussianDudeLevel(){
         isPlayerTurn = playTurn(isPlayerTurn, *shotgun, *player, *dealer);
     }
 
+    Statistics stats = GetStat();
     if (player->getCurrentLives() <= 0) {
         cout << "You lost all your lives. Game over.\n";
-        updateRussianLost(stat);
+        stats.RussianLost++;
     } else if (dealer->getCurrentLives() <= 0) {
         cout << "The Dealer lost all their lives. You win!\n";
-        updateRussianWin(stat);
+        stats.RussianWon++;
     } else {
         cout << "Both the Player and the Dealer have survived this round!\n";
-        FairGame(stat);
     }
+    SaveStat(stats);
 
     delete shotgun;
     delete player;

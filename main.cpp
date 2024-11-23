@@ -1,11 +1,12 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <ctime>
 #include "help.h"
 #include "RussianDudeLevel.h"
 #include "CppDemonLevel.h"
 #include "Cutscene.h"
-#include "stats.h"
+#include "newstats.h"
 
 using namespace std;
 
@@ -100,7 +101,7 @@ void main_menu(){
     cout << "Enter (4) for Statistics" << endl;
     cout << "Enter (5) for HARD RESET" << endl;
     cout << "Enter (q) to Quit"<< endl;
-    Statistics stat(0,0,0,0,0,0);
+    Statistics stats = GetStat();
     time_t startTime = time(nullptr);
     string userInput;
     bool validInput = false;
@@ -120,14 +121,17 @@ void main_menu(){
         }
         else if (userInput == "4" || userInput == "(4)"){
             validInput = true;
-            stats();
+            PrintStat(stats);
         }
         else if (userInput == "5" || userInput == "(5)"){
             validInput = true;
-            hardReset();
+            InitializeStat();
         }
         else if (userInput == "q" || userInput == "(q)" || userInput == "Q"){
-            TimeStat(stat,startTime);
+            time_t endTime = time(nullptr);
+            int Timeplay =static_cast <int> (endTime- startTime);
+            stats.TotalTime += Timeplay;
+            SaveStat(stats);
             exit(0);
         }
         else {
@@ -144,6 +148,12 @@ void main_menu(){
 
 int main()
 {
+    ifstream file("data.txt");
+    if (file.good()){
+        cout << "Good file status!" << endl;
+    } else{
+        InitializeStat();
+    }
     main_menu();
     return 0;
 }
