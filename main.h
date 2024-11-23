@@ -2,7 +2,7 @@
 #define MAIN_H
 
 void main_menu();
-void level_selection_menu();
-void help_menu();
+void LevelSelectionMenu();
+void HelpMenu();
 
 #endif //MAIN_H

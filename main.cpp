@@ -11,11 +11,12 @@ using namespace std;
 
 // Functions used here
 void main_menu();
-void level_selection_menu();
-void help_menu();
+void LevelSelectionMenu();
+void HelpMenu();
 
 
-void level_selection_menu(){
+void LevelSelectionMenu(){
+    cout << string(30, '\n');
     cout << "Select a level to play" << endl;
     cout << "Enter (1) for Russian Dude" << endl;
     cout << "Enter (2) for C++ Demon" << endl;
@@ -47,10 +48,13 @@ void level_selection_menu(){
     }
 }
 
-void help_menu(){
+void HelpMenu(){
+    cout << string(30, '\n');
     cout << "Which part of the game would you like to learn about?" << endl;
     cout << "Enter (1) for Gameplay" << endl;
-    cout << "Enter (2) for Items" << endl;
+    cout << "Enter (2) for Supply phase" << endl;
+    cout << "Enter (3) for Item phase" << endl;
+    cout << "Enter (4) for Shooting phase" << endl;
     cout << "Enter (r) to return to main menu" << endl;
     string Selection;
     bool validSelection = false;
@@ -62,7 +66,15 @@ void help_menu(){
         }
         else if (Selection == "2" || Selection == "(2)"){
             validSelection = true;
+            SupplyHelp();
+        }
+        else if (Selection == "3" || Selection == "(3)"){
+            validSelection = true;
             ItemsHelp();
+        }
+        else if (Selection == "4" || Selection == "(4)"){
+            validSelection = true;
+            ShootHelp();
         }
         else if (Selection == "r" || Selection == "(r)" || Selection == "R"){
             validSelection = true;
@@ -71,7 +83,9 @@ void help_menu(){
         else{
             cout << "Invalid User Input. Please try again." << endl;
             cout << "Enter (1) for Gameplay" << endl;
-            cout << "Enter (2) for Items" << endl;
+            cout << "Enter (2) for Supply phase" << endl;
+            cout << "Enter (3) for Item phase" << endl;
+            cout << "Enter (4) for Shooting phase" << endl;
             cout << "Enter (r) to return to main menu" << endl;
         }
     }
@@ -94,7 +108,7 @@ void main_menu(){
         cin >> userInput;
         if (userInput == "1" || userInput == "(1)"){
             validInput = true;
-            level_selection_menu();
+            LevelSelectionMenu();
         }
         else if (userInput == "2" || userInput == "(2)"){
             cout << "This feature is broken now, sorry!" << endl;
@@ -102,7 +116,7 @@ void main_menu(){
         }
         else if (userInput == "3" || userInput == "(3)"){
             validInput = true;
-            help_menu();
+            HelpMenu();
         }
         else if (userInput == "4" || userInput == "(4)"){
             validInput = true;
