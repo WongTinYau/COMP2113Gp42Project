@@ -1,11 +1,11 @@
 #include <iostream>
+#include <fstream>
 #include <string>
-#include <ctime>
 #include "help.h"
 #include "RussianDudeLevel.h"
 #include "CppDemonLevel.h"
 #include "Cutscene.h"
-#include "stats.h"
+#include "newstats.h"
 
 using namespace std;
 
@@ -14,12 +14,29 @@ void main_menu();
 void LevelSelectionMenu();
 void HelpMenu();
 
-
 void LevelSelectionMenu(){
     cout << string(30, '\n');
     cout << "Select a level to play" << endl;
-    cout << "Enter (1) for Russian Dude" << endl;
-    cout << "Enter (2) for C++ Demon" << endl;
+    Statistics stats = GetStat();
+    cout << "\033[102m";    //set background color to bright green
+    cout << "(Cleared level)" << endl;
+    cout << "\033[40m";     // set background color back to black
+    if (stats.RussianWon > 0){
+        cout << "\033[102m";    //set background color to bright green
+        cout << "Enter (1) for Russian Dude" << endl;
+        cout << "\033[40m";     // set background color back to black
+    }
+    else {
+        cout << "Enter (1) for Russian Dude" << endl;
+    }
+    if (stats.DemonWon > 0){
+        cout << "\033[102m";    //set background color to bright green
+        cout << "Enter (2) for C++ Demon" << endl;
+        cout << "\033[40m";     // set background color back to black
+    }
+    else {
+        cout << "Enter (2) for C++ Demon" << endl;
+    }
     cout << "Enter (r) to return to main menu" << endl;
     string Selection;
     bool validSelection = false;
@@ -32,7 +49,7 @@ void LevelSelectionMenu(){
         }
         else if (Selection == "2" || Selection == "(2)"){
             validSelection = true;
-            cutsceneO1();
+            cutsceneO2();
             CppDemonLevel();
         }
         else if (Selection == "r" || Selection == "(r)" || Selection == "R"){
@@ -100,8 +117,8 @@ void main_menu(){
     cout << "Enter (4) for Statistics" << endl;
     cout << "Enter (5) for HARD RESET" << endl;
     cout << "Enter (q) to Quit"<< endl;
-    Statistics stat(0,0,0,0,0,0);
-    time_t startTime = time(nullptr);
+    Statistics stats = GetStat();
+    
     string userInput;
     bool validInput = false;
     while (validInput == false) {
@@ -120,14 +137,14 @@ void main_menu(){
         }
         else if (userInput == "4" || userInput == "(4)"){
             validInput = true;
-            stats();
+            PrintStat(stats);
         }
         else if (userInput == "5" || userInput == "(5)"){
             validInput = true;
-            hardReset();
+            InitializeStat();
         }
         else if (userInput == "q" || userInput == "(q)" || userInput == "Q"){
-            TimeStat(stat,startTime);
+            SaveStat(stats);
             exit(0);
         }
         else {
@@ -144,6 +161,12 @@ void main_menu(){
 
 int main()
 {
+    ifstream file("data.txt");
+    if (file.good()){
+        cout << "Good file status!" << endl;
+    } else{
+        InitializeStat();
+    }
     main_menu();
     return 0;
 }
