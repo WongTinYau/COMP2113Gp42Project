@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <ctime>
 #include "help.h"
 #include "RussianDudeLevel.h"
 #include "CppDemonLevel.h"
@@ -15,14 +14,29 @@ void main_menu();
 void LevelSelectionMenu();
 void HelpMenu();
 
-// Global variable
-time_t startTime;
-
 void LevelSelectionMenu(){
     cout << string(30, '\n');
     cout << "Select a level to play" << endl;
-    cout << "Enter (1) for Russian Dude" << endl;
-    cout << "Enter (2) for C++ Demon" << endl;
+    Statistics stats = GetStat();
+    cout << "\033[102m";    //set background color to bright green
+    cout << "(Cleared level)" << endl;
+    cout << "\033[40m";     // set background color back to black
+    if (stats.RussianWon > 0){
+        cout << "\033[102m";    //set background color to bright green
+        cout << "Enter (1) for Russian Dude" << endl;
+        cout << "\033[40m";     // set background color back to black
+    }
+    else {
+        cout << "Enter (1) for Russian Dude" << endl;
+    }
+    if (stats.DemonWon > 0){
+        cout << "\033[102m";    //set background color to bright green
+        cout << "Enter (2) for C++ Demon" << endl;
+        cout << "\033[40m";     // set background color back to black
+    }
+    else {
+        cout << "Enter (2) for C++ Demon" << endl;
+    }
     cout << "Enter (r) to return to main menu" << endl;
     string Selection;
     bool validSelection = false;
@@ -123,20 +137,13 @@ void main_menu(){
         }
         else if (userInput == "4" || userInput == "(4)"){
             validInput = true;
-            time_t endTime = time(nullptr);
-            int Timeplay =static_cast <int> (endTime - startTime);
-            stats.TotalTime += Timeplay;
             PrintStat(stats);
-            time_t startTime = time(nullptr);
         }
         else if (userInput == "5" || userInput == "(5)"){
             validInput = true;
             InitializeStat();
         }
         else if (userInput == "q" || userInput == "(q)" || userInput == "Q"){
-            time_t endTime = time(nullptr);
-            int Timeplay =static_cast <int> (endTime - startTime);
-            stats.TotalTime += Timeplay;
             SaveStat(stats);
             exit(0);
         }
@@ -160,7 +167,6 @@ int main()
     } else{
         InitializeStat();
     }
-    time_t startTime = time(nullptr);
     main_menu();
     return 0;
 }
