@@ -127,7 +127,7 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
 }
 
 void RussianDudeLevel(){
-    cout << "Russian Dude level entered successfully!" << endl;
+    cout << "Russian Dude level entered successfully!\n" << endl;
     
     Shotgun* shotgun = new Shotgun(2, 6, 1);
     Entity* player = new Entity("Player", 2, 4);
@@ -150,6 +150,7 @@ void RussianDudeLevel(){
         stats.RussianWon++;
     } else {
         cout << "Both the Player and the Dealer have survived this round!\n";
+        stats.RussianDraw++;
     }
     SaveStat(stats);
 

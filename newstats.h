@@ -7,6 +7,7 @@ struct Statistics{
     // statistics stored in file
     int RussianWon;
     int RussianLost;
+    int RussianDraw;
     int DemonWon;
     int DemonLost;
     int TotalTime; //in seconds
@@ -17,16 +18,17 @@ struct Statistics{
     int DemonGames;
 
     //Constructor
-    Statistics(int a, int b, int c, int d, int e){
+    Statistics(int a, int b, int c, int d, int e, int f){
         RussianWon = a;
         RussianLost = b;
-        DemonWon = c;
-        DemonLost = d;
-        TotalTime = e;
+        RussianDraw = c;
+        DemonWon = d;
+        DemonLost = e;
+        TotalTime = f;
 
-        TotalGames = a + b + c + d;
-        RussianGames = a + b;
-        DemonGames = c + d;
+        TotalGames = a + b + c + d + e;
+        RussianGames = a + b + c;
+        DemonGames = d + e;
     }
 };
 

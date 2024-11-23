@@ -15,6 +15,8 @@ void main_menu();
 void LevelSelectionMenu();
 void HelpMenu();
 
+// Global variable
+time_t startTime;
 
 void LevelSelectionMenu(){
     cout << string(30, '\n');
@@ -33,7 +35,7 @@ void LevelSelectionMenu(){
         }
         else if (Selection == "2" || Selection == "(2)"){
             validSelection = true;
-            cutsceneO1();
+            cutsceneO2();
             CppDemonLevel();
         }
         else if (Selection == "r" || Selection == "(r)" || Selection == "R"){
@@ -102,7 +104,7 @@ void main_menu(){
     cout << "Enter (5) for HARD RESET" << endl;
     cout << "Enter (q) to Quit"<< endl;
     Statistics stats = GetStat();
-    time_t startTime = time(nullptr);
+    
     string userInput;
     bool validInput = false;
     while (validInput == false) {
@@ -121,7 +123,11 @@ void main_menu(){
         }
         else if (userInput == "4" || userInput == "(4)"){
             validInput = true;
+            time_t endTime = time(nullptr);
+            int Timeplay =static_cast <int> (endTime - startTime);
+            stats.TotalTime += Timeplay;
             PrintStat(stats);
+            time_t startTime = time(nullptr);
         }
         else if (userInput == "5" || userInput == "(5)"){
             validInput = true;
@@ -129,7 +135,7 @@ void main_menu(){
         }
         else if (userInput == "q" || userInput == "(q)" || userInput == "Q"){
             time_t endTime = time(nullptr);
-            int Timeplay =static_cast <int> (endTime- startTime);
+            int Timeplay =static_cast <int> (endTime - startTime);
             stats.TotalTime += Timeplay;
             SaveStat(stats);
             exit(0);
@@ -154,6 +160,7 @@ int main()
     } else{
         InitializeStat();
     }
+    time_t startTime = time(nullptr);
     main_menu();
     return 0;
 }

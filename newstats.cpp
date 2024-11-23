@@ -7,6 +7,7 @@ struct Statistics{
     // statistics stored in file
     int RussianWon;
     int RussianLost;
+    int RussianDraw;
     int DemonWon;
     int DemonLost;
     int TotalTime; //in seconds
@@ -17,16 +18,17 @@ struct Statistics{
     int DemonGames;
 
     //Constructor
-    Statistics(int a, int b, int c, int d, int e){
+    Statistics(int a, int b, int c, int d, int e, int f){
         RussianWon = a;
         RussianLost = b;
-        DemonWon = c;
-        DemonLost = d;
-        TotalTime = e;
+        RussianDraw = c;
+        DemonWon = d;
+        DemonLost = e;
+        TotalTime = f;
 
-        TotalGames = a + b + c + d;
-        RussianGames = a + b;
-        DemonGames = c + d;
+        TotalGames = a + b + c + d + e;
+        RussianGames = a + b + c;
+        DemonGames = d + e;
     }
 };
 
@@ -37,7 +39,7 @@ void InitializeStat(){
         cout << "Error in file opening!" << endl;
         exit(1);
     }
-    fout << 0 << ' ' << 0 << ' ' << 0 << ' ' << 0 << ' ' << 0;
+    fout << 0 << ' ' << 0 << ' ' << 0 << ' ' << 0 << ' ' << 0 << ' ' << 0;
     fout.close();
 }
 
@@ -48,10 +50,10 @@ Statistics GetStat(){
         cout << "Error in file opening!" << endl;
         exit(1);
     }
-    int a, b, c, d, e;
-    fin >> a >> b >> c >> d >> e;
+    int a, b, c, d, e, f;
+    fin >> a >> b >> c >> d >> e >> f;
     fin.close();
-    return Statistics(a, b, c, d, e);
+    return Statistics(a, b, c, d, e, f);
 }
 
 void SaveStat(Statistics stats){
@@ -61,20 +63,21 @@ void SaveStat(Statistics stats){
         cout << "Error in file opening!" << endl;
         exit(1);
     }
-    fout << stats.RussianWon << ' ' << stats.RussianLost << ' ' << stats.DemonWon << ' ' << stats.DemonLost << ' ' << stats.TotalTime;
+    fout << stats.RussianWon << ' ' << stats.RussianLost << ' ' << stats.RussianDraw << ' '<< stats.DemonWon << ' ' << stats.DemonLost << ' ' << stats.TotalTime;
     fout.close();
 }
 
 void PrintStat(Statistics stats){
     // derived statistics
-    int TotalGames = stats.RussianWon + stats.RussianLost + stats.DemonWon + stats.DemonLost;
-    int RussianGames = stats.RussianWon + stats.RussianLost;
+    int TotalGames = stats.RussianWon + stats.RussianLost + stats.RussianDraw + stats.DemonWon + stats.DemonLost;
+    int RussianGames = stats.RussianWon + stats.RussianLost + stats.RussianDraw;
     int DemonGames = stats.DemonWon + stats.DemonLost;
 
     cout << "Total game played: " << TotalGames << endl;
     cout << "Play count of Russian Dude level: " << RussianGames << endl;
     cout << "Russian Dude level won: " << stats.RussianWon << endl;
     cout << "Russian Dude level lost: " << stats.RussianLost << endl;
+    cout << "Russian Dude level drawn: " << stats.RussianDraw << endl;
     if (RussianGames == 0){
         cout << "Russian Dude level win %: " << "N/A" << endl;
     } else {

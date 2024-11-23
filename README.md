@@ -24,7 +24,7 @@ This game is also heavily inspired by the game Buckshot Roulette.
 ### Game rules
 Basically, each player may use any number of items, then decide to shoot himself or the opponent.
 However, shots can be either empty or full, the items each player receive is also randomized.
-The game continues until one of the player dies (live total <= 0).
+You win if the opponent dies (live total <= 0).
 Due to complex item & phase interactions, instead of listing them here (which will take > 50 lines), 
 we will recommend learning the details via gameplay.
 Please refer to help.cpp (source code documentation) 
@@ -54,6 +54,8 @@ A: Quite a lot, in general C++ Demon level should be harder to beat.
     1. AI in C++ Demon level is smarter
     2. The C++ Demon has a way higher life total than Russian Dude
     3. More shots per reload, hence making probability calculations a bit harder for players
+    Besides difference in difficulty, C++ Demon level only ends when one of the layer dies,
+    while Russian Dude level ends as soon as there are no shot left.
 
 Q: Are those arts original?
 A: 'Not completely, either modified from online sources manually or used AI-tools to generate.' ~ Wong Tin Yau
