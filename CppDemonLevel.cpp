@@ -204,7 +204,6 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
         int chances = (shotgun.getRemainingShells() > 0) ? (shotgun.getRemainingLiveShells() * 100) / shotgun.getRemainingShells() : 0;
         
         slotNumber = dealerUse(dealer, player, dealerItemQueue, dealerNextChoice, chances);
-        dealerNextChoice = -1;
         choice = dealerChoose(dealer, slotNumber, chances);
 
         if (choice == 0) {
@@ -259,6 +258,8 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
             }
             return false;
         }
+
+        dealerNextChoice = -1;
 
         if (player.getPunishedRounds() > 0) {
             player.reducePunishedRounds(1);
@@ -315,22 +316,21 @@ void CppDemonLevel(){
             dealerItemQueue = {};
             dealerNextChoice = -1; // clear after each round
         }
+        auto endTime = high_resolution_clock::now();
+        auto duration = duration_cast<seconds>(endTime - startTime);
+        long playTimeinSeconds = duration.count();
+        stats.TotalTime += playTimeinSeconds;
         SaveStat(stats);
     }
     delete shotgun;
     delete player;
     delete dealer;
 
-    auto endTime = high_resolution_clock::now(); 
-    auto duration = duration_cast<seconds>(endTime - startTime);
-    long playTimeinSeconds = duration.count();
-    Statistics stats = GetStat();
-    stats.TotalTime += playTimeinSeconds;
-    SaveStat(stats);
-
     string command;
     cout << "Enter any key to return to main menu.\n";
     cin >> command;
     main_menu();
 }
+
+
 
