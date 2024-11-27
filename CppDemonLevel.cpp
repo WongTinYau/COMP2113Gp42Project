@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <random>
 #include <utility>
+#include <chrono>
 #include "Shotgun.h"
 #include "Entity.h"
 #include "Item.h"
@@ -22,6 +23,7 @@ static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
 }
 
 int dealerChoose(Entity& dealer, int slotNumber, int chances) {
+
     if (slotNumber == -1) {
         if (chances <= (6 + dealer.getCurrentLives() * 3) ) { // 9 - 30%
             return 0;
@@ -29,9 +31,11 @@ int dealerChoose(Entity& dealer, int slotNumber, int chances) {
         return 1;
     }
     else if (slotNumber == -2) { // override from dealerUse()
+        slotNumber = -1;
         return 0;
     }
     else if (slotNumber == -3) { // override from dealerUse()
+        slotNumber = -1;
         return 1;
     }
 
@@ -145,24 +149,39 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
             }
         }
         else if (choice == 'u') {
-            cout << "Choose your desired item's slot: ";
+            if (player.getInventory().getItemCount() == 0) {
+                cout << "You have no items to use. You lose your turn.\n";
+                return false;  
+            }
+
             int slotNumber;
-            cin >> slotNumber;
+            while (true) {
+                cout << "Choose your desired item's slot (0 to " << player.getInventory().getItemCount() - 1 << "): ";
+                cin >> slotNumber;
 
-            if (slotNumber >= 0 && slotNumber < player.getInventory().getItemCount()) {
-                Item item = player.getInventory().getSlotItem(slotNumber);
-
-                pair<bool, string> response = item.use(player, dealer, shotgun);
-                cout << response.second << endl;
-
-                if (response.first) {
-                    player.getInventory().resetSlot(slotNumber);
+                if (cin.fail()) {
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    cout << "Invalid input. Please enter a valid slot number.\n";
+                    continue; // re-prompt player
                 }
-                return true;
+
+                if (slotNumber >= 0 && slotNumber < player.getInventory().getItemCount()) {
+                    Item item = player.getInventory().getSlotItem(slotNumber);
+
+                    pair<bool, string> response = item.use(player, dealer, shotgun);
+                    cout << response.second << endl;
+
+                    if (response.first) {
+                        player.getInventory().resetSlot(slotNumber);
+                    }
+                    return true;
+                }
+
+                cout << "Invalid slot number. Please enter a number between 0 and "
+                    << player.getInventory().getItemCount() - 1 << ".\n";
             }
-            else {
-                cout << "Invalid slot number. You lose your turn." << endl;;
-            }
+          
         }
         else if (choice == 'q') {
             cout << "Quiting...\n";
@@ -185,6 +204,7 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
         int chances = (shotgun.getRemainingShells() > 0) ? (shotgun.getRemainingLiveShells() * 100) / shotgun.getRemainingShells() : 0;
         
         slotNumber = dealerUse(dealer, player, dealerItemQueue, dealerNextChoice, chances);
+        dealerNextChoice = -1;
         choice = dealerChoose(dealer, slotNumber, chances);
 
         if (choice == 0) {
@@ -250,8 +270,11 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
 
 
 void CppDemonLevel(){
+    using namespace std::chrono;
     cout << "C++ Demon level entered successfully!\n";
     cout << "You and the Dealer will play to death.\n";
+
+    auto startTime = high_resolution_clock::now();
 
     bool gameOnGoing = true;
     Shotgun* shotgun = nullptr;
@@ -298,7 +321,11 @@ void CppDemonLevel(){
     delete player;
     delete dealer;
 
-    
+    auto endTime = high_resolution_clock::now(); 
+    auto duration = duration_cast<seconds>(endTime - startTime);
+    long playTimeinSeconds = duration.count();
+    AddTotalTime(playTimeinSeconds);
+
     string command;
     cout << "Enter any key to return to main menu.\n";
     cin >> command;
