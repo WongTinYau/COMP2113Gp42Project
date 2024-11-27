@@ -9,11 +9,6 @@
 
 using namespace std;
 
-// Functions used here
-void main_menu();
-void LevelSelectionMenu();
-void HelpMenu();
-
 void LevelSelectionMenu(){
     cout << string(30, '\n');
     cout << "Select a level to play" << endl;
@@ -108,6 +103,20 @@ void HelpMenu(){
     }
 }
 
+void HardResetMenu(){
+    // Warning message to prevent accidental reset
+    cout << "\nAre you really sure to reset everything?" << endl;
+    cout << "Enter 'YES' (without the ') to proceed." << endl;
+    string command;
+    if (command == "YES"){
+        InitializeStat();
+    }
+    else{
+        cout << "Decision aborted, returning to main menu." << endl;
+    }
+    main_menu();
+}
+
 void main_menu(){
     cout << string(30, '\n');
     cout << "Welcome to NEW RUSSIAN ROULETTE" << endl;
@@ -141,7 +150,7 @@ void main_menu(){
         }
         else if (userInput == "5" || userInput == "(5)"){
             validInput = true;
-            InitializeStat();
+            HardResetMenu();
         }
         else if (userInput == "q" || userInput == "(q)" || userInput == "Q"){
             SaveStat(stats);

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "main.h"
 using namespace std;
 
 struct Statistics{
@@ -73,6 +74,8 @@ void PrintStat(Statistics stats){
     int RussianGames = stats.RussianWon + stats.RussianLost + stats.RussianDraw;
     int DemonGames = stats.DemonWon + stats.DemonLost;
 
+    cout << string(30, '\n');
+    cout << "Statistics\n" << endl;
     cout << "Total game played: " << TotalGames << endl;
     cout << "Play count of Russian Dude level: " << RussianGames << endl;
     cout << "Russian Dude level won: " << stats.RussianWon << endl;
@@ -92,4 +95,9 @@ void PrintStat(Statistics stats){
         cout << "C++ Demon level win %: " << (stats.DemonWon * 100 / DemonGames) << endl;
     }
     cout << "Total time played: " << stats.TotalTime << " seconds" << endl;
+
+    string command;
+    cout << "Enter any key to return to main menu" << endl;
+    cin >> command;
+    main_menu();
 }
