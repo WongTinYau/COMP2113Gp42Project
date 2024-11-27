@@ -324,7 +324,9 @@ void CppDemonLevel(){
     auto endTime = high_resolution_clock::now(); 
     auto duration = duration_cast<seconds>(endTime - startTime);
     long playTimeinSeconds = duration.count();
-    AddTotalTime(playTimeinSeconds);
+    Statistics stats = GetStat();
+    stats.TotalTime += playTimeinSeconds;
+    SaveStat(stats);
 
     string command;
     cout << "Enter any key to return to main menu.\n";
