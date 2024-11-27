@@ -9,6 +9,11 @@
 
 using namespace std;
 
+void main_menu();
+void LevelSelectionMenu();
+void HelpMenu();
+void HardResetMenu();
+
 void LevelSelectionMenu(){
     cout << string(30, '\n');
     cout << "Select a level to play" << endl;
