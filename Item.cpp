@@ -21,8 +21,8 @@ ItemType Item::getType() {
 pair<bool, string> Item::use(Entity &user, Entity &target, Shotgun &gun) {
     switch(m_Type) {
         case ItemType::SAW: {
-            gun.increaseTempDamage(1);
-            return make_pair(true, string("Saw Used! The upcomming shot now deals " + to_string(gun.getUpcomingDamage()) + " damage!"));
+            gun.increaseTempDamage(gun.getUpcomingDamage());
+            return make_pair(true, string("Saw Used! The upcomming shot now deals double damage!"));
         }
         case ItemType::MAGNIFYING_GLASS: {
             if(gun.getUpcomingShell() == Shell::BLANK) return make_pair(true, "Magnifying Glass Used! The shell is Blank!");

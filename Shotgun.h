@@ -11,7 +11,7 @@ public:
     /// @param liveCount (int) The amount of live shells of the shotgun.
     /// @param maxStock  (int) The maximum number of shells of the shotgun.
     /// @param damage  (int) The amount of base damage of the shotgun (The amount of lives deducted after shooting if the upcoming shell is live).
-    Shotgun(int liveCount, int maxStock, int damage);
+    Shotgun(int liveCount, int maxStock, int baseDamage);
 
     /// @brief Returns the remaining live shells of the shotgun.
     /// @return (int) The remaining live shells of the shotgun.
@@ -50,6 +50,7 @@ public:
 private:
     /// @brief The following variables should not be accessed from other .cpp files. Use the public functions instead.
     std::vector<Shell> m_shotgun;
+    int m_baseDamage;
     int m_damage;
     int m_tempDamage = 0;
 };

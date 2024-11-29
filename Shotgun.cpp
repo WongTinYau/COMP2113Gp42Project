@@ -9,7 +9,7 @@ using namespace std;
 
 //The shotgun is loaded upon initialization. You can write a reload function if you want.
 Shotgun::Shotgun(int liveCount, int maxStock, int damage) {
-    m_damage = damage;
+    m_baseDamage = damage;
     for (int i = 0; i < maxStock; ++i) {
         if (liveCount > 0) {
             m_shotgun.push_back(Shell::LIVE);
@@ -21,6 +21,8 @@ Shotgun::Shotgun(int liveCount, int maxStock, int damage) {
     random_device rd;
     mt19937 g(rd());
     shuffle(m_shotgun.begin(), m_shotgun.end(), g);
+    if(getUpcomingShell() == Shell::LIVE) m_damage = m_baseDamage;
+    else m_damage = 0;
 }
 
 int Shotgun::getRemainingLiveShells() {
@@ -40,6 +42,8 @@ pair<Shell, int> Shotgun::shoot() {
     m_shotgun.pop_back();
     int final_damage = getUpcomingDamage();
     m_tempDamage = 0;
+    if(getUpcomingShell() == Shell::LIVE) m_damage = m_baseDamage;
+    else m_damage = 0;
     return make_pair(shell, final_damage);
 }
 
@@ -57,10 +61,6 @@ Shell Shotgun::getUpcomingShell() {
 }
 
 void Shotgun::invertUpcomingShell() {
-    if(m_shotgun.back() == Shell::BLANK) {
-        m_shotgun.back() = Shell::LIVE;
-    }
-    else if(m_shotgun.back() == Shell::LIVE) {
-        m_shotgun.back() = Shell::BLANK;
-    }
+    if(m_shotgun.back() == Shell::BLANK) m_shotgun.back() = Shell::LIVE;
+    else if(m_shotgun.back() == Shell::LIVE) m_shotgun.back() = Shell::BLANK;
 }

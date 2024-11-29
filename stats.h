@@ -20,7 +20,7 @@ struct Statistics{
     }
 };
 
-void SaveStat(Statistics&stat);
+void SaveStat(const Statistics&stat);
 void FindStat();
 void hardReset();
 void stats();
