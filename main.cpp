@@ -13,6 +13,14 @@ void main_menu();
 void LevelSelectionMenu();
 void HelpMenu();
 void HardResetMenu();
+void ReturnToMainMenu();
+
+void ReturnToMainMenu(){
+    string command;
+    cout << "Enter any key to return to main menu." << endl;
+    cin >> command;
+    main_menu();
+}
 
 void LevelSelectionMenu(){
     cout << string(30, '\n');

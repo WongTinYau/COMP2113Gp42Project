@@ -9,7 +9,7 @@ void GameplayHelp();
 void ShootHelp();
 void SupplyHelp();
 void ItemsHelp();
-void ReturnHelpMenu();
+void ReturnToHelpMenu();
 //
 void GameplayHelp(){
     cout << "\nHere is the rundown of the gameplay.\n" << endl;
@@ -36,7 +36,7 @@ void GameplayHelp(){
     cout << "For C++ Demon level, the game continues until one of the players reached the life total of 0 or below." << endl;
     cout << "(i.e. game won't end when there is no shots left, because restock happens)" << endl;
     cout << "That player loses the game, and the other player wins." << endl;
-    ReturnHelpMenu();
+    ReturnToHelpMenu();
 }
 
 void ShootHelp(){
@@ -54,7 +54,7 @@ void ShootHelp(){
     cout << "How is shell damage calculated?" << endl;
     cout << "Base damage: live shell = 1, blank shell = 0" << endl;
     cout << "If saw is applied: shell damage = 2 x base damage.\n" << endl;
-    ReturnHelpMenu();
+    ReturnToHelpMenu();
 }
 
 void SupplyHelp(){
@@ -68,7 +68,7 @@ void SupplyHelp(){
     cout << "The total number of items for both player is 4 when supply phase ends.\n" << endl;
     cout << "FAQ: Do I keep unused items from last turn?" << endl;
     cout << "Ans: Yes.\n" << endl;
-    ReturnHelpMenu();
+    ReturnToHelpMenu();
 }
 
 void ItemsHelp(){
@@ -85,10 +85,10 @@ void ItemsHelp(){
     cout << "Russian Dude level: 4 (both players)" << endl;
     cout << "C++ Demon level: 8 (both players)" << endl;
     cout << "Players cannot stack items beyond inventory size, so use items wisely!" << endl;
-    ReturnHelpMenu();
+    ReturnToHelpMenu();
 }
 
-void ReturnHelpMenu(){
+void ReturnToHelpMenu(){
     string Input;
     cout << "\nEnter any key to return to help menu: ";
     cin >> Input;

@@ -158,8 +158,5 @@ void RussianDudeLevel(){
     delete player;
     delete dealer;
     
-    string command;
-    cout << "Enter any key to return to main menu." << endl;
-    cin >> command;
-    main_menu();
+    ReturnToMainMenu();
 }

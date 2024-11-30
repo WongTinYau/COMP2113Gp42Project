@@ -326,10 +326,7 @@ void CppDemonLevel(){
     delete player;
     delete dealer;
 
-    string command;
-    cout << "Enter any key to return to main menu.\n";
-    cin >> command;
-    main_menu();
+    ReturnToMainMenu();
 }
 
 

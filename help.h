@@ -5,6 +5,6 @@ void GameplayHelp();
 void ShootHelp();
 void SupplyHelp();
 void ItemsHelp();
-void ReturnHelpMenu();
+void ReturnToHelpMenu();
 
 #endif //HELP_H

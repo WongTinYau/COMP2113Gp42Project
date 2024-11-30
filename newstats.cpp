@@ -96,8 +96,5 @@ void PrintStat(Statistics stats){
     }
     cout << "Total time played: " << stats.TotalTime << " seconds" << endl;
 
-    string command;
-    cout << "Enter any key to return to main menu" << endl;
-    cin >> command;
-    main_menu();
+    ReturnToMainMenu();
 }
