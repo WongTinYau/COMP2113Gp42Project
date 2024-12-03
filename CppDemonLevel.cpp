@@ -14,6 +14,9 @@
 #include "CppDemonLevel.h"
 #include "ItemType.h"
 #include "newstats.h"
+#include "GameState.h"
+#include "SaveLoad.h"
+
 using namespace std;
 
 static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
@@ -327,6 +330,59 @@ void CppDemonLevel(){
     delete dealer;
 
     ReturnToMainMenu();
+}
+
+//Resume the Game from a Saved State
+void ResumeCppDemonLevel() {
+    GameState state;
+
+    //Load the saved game state
+    if (LoadGame(state)) {
+        cout << "Resuming saved game...\n";
+
+        vector<Item> dealerItemQueue = state.dealerItemQueue;
+        int dealerNextChoice = state.dealerNextChoice;
+        bool isPlayerTurn = state.isPlayerTurn;
+
+        while (!state.shotgun.isEmpty() && state.player.getCurrentLives() > 0 && state.dealer.getCurrentLives() > 0) {
+            printStatus(state.player, state.dealer, state.shotgun);
+
+            isPlayerTurn = playTurn(isPlayerTurn, state.shotgun, state.player, state.dealer, dealerItemQueue, dealerNextChoice);
+
+            // Save the game after every turn
+            state.dealerItemQueue = dealerItemQueue;
+            state.dealerNextChoice = dealerNextChoice;
+            state.isPlayerTurn = isPlayerTurn;
+
+            SaveGame(state);
+        }
+
+        Statistics stats = GetStat();
+        if (state.player.getCurrentLives() <= 0) {
+            cout << "You lost all your lives. Game over.\n";
+            stats.DemonLost++;
+        } else if (state.dealer.getCurrentLives() <= 0) {
+            cout << "The Dealer lost all their lives. You win!\n";
+            stats.DemonWon++;
+        } else {
+            cout << "Both you and the Dealer survived this round!\n";
+        }
+        SaveStat(stats);
+
+        ReturnToMainMenu();
+    } else {
+        cout << "No saved game found. Starting a new game instead...\n";
+        CppDemonLevel();
+    }
+}
+
+//Start Game with Save/Load
+void CppDemonLevelWithSaveSupport(bool continueGame = false) {
+    if (continueGame) {
+        ResumeCppDemonLevel();
+    } else {
+        CppDemonLevel();
+    }
 }
 
 
