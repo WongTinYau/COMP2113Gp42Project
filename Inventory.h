@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Item.h"
+#include <fstream>
 
 class Item;
 
@@ -45,6 +46,9 @@ public:
     /// @brief Returns the maximum items that the inventory can store.
     /// @return The maximum items that the inventory can store.
     int getMaxInventorySlots();
+
+    void save(std::ofstream& fout) const;
+    void load(std::ifstream& fin);
 
 private:
     /// @brief The following variables should not be accessed from other .cpp files. Use the public functions instead.
