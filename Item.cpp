@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Shotgun.h"
 #include "Inventory.h"
+#include <fstream>
 
 using namespace std;
 
@@ -15,6 +16,17 @@ Item::Item(ItemType type) {
 
 ItemType Item::getType() {
     return m_Type;
+}
+
+void Item::save(std::ofstream& fout) const {
+    int type = static_cast<int>(m_Type);
+    fout.write(reinterpret_cast<const char*>(&type), sizeof(int));
+}
+
+void Item::load(std::ifstream& fin) {
+    int type;
+    fin.read(reinterpret_cast<char*>(&type), sizeof(int)); // Read the integer from the file
+    m_Type = static_cast<ItemType>(type); // Convert the integer back to ItemType
 }
 
 //Returns 1. Whether the item has been used successfully, and 2. The message to be sent.
