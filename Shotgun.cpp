@@ -4,6 +4,7 @@
 #include <utility>
 #include "Shell.h"
 #include "Shotgun.h"
+#include <fstream>
 
 using namespace std;
 
@@ -63,4 +64,16 @@ Shell Shotgun::getUpcomingShell() {
 void Shotgun::invertUpcomingShell() {
     if(m_shotgun.back() == Shell::BLANK) m_shotgun.back() = Shell::LIVE;
     else if(m_shotgun.back() == Shell::LIVE) m_shotgun.back() = Shell::BLANK;
+}
+
+void Shotgun::save(std::ofstream& fout) const {
+    fout.write(reinterpret_cast<const char*>(&liveShells), sizeof(int));
+    fout.write(reinterpret_cast<const char*>(&blankShells), sizeof(int));
+    fout.write(reinterpret_cast<const char*>(&remainingShells), sizeof(int));
+}
+
+void Shotgun::load(std::ifstream& fin) {
+    fin.read(reinterpret_cast<char*>(&liveShells), sizeof(int));
+    fin.read(reinterpret_cast<char*>(&blankShells), sizeof(int));
+    fin.read(reinterpret_cast<char*>(&remainingShells), sizeof(int));
 }
