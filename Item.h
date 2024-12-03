@@ -6,6 +6,7 @@
 #include "ItemType.h"
 #include "Entity.h"
 #include "Shotgun.h"
+#include <fstream>
 
 class Entity;
 class Shotgun;
@@ -29,6 +30,9 @@ public:
 
     /// @brief Default destructor.
     virtual ~Item() = default;
+
+    void save(std::ofstream& fout) const;
+    void load(std::ifstream& fin);
 
 private:
     /// @brief The following variables should not be accessed from other .cpp files. Use the public functions instead.
