@@ -14,6 +14,9 @@
 #include "Inventory.h"
 #include "Shell.h"
 #include "newstats.h"
+#include "GameState.h"
+#include "SaveLoad.h"
+
 using namespace std;
 
 static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
@@ -164,11 +167,11 @@ void RussianDudeLevel(){
 void ResumeRussianDudeLevel() {
     GameState state;
 
-    // Attempt to load the saved game state
+    // Load the saved game state
     if (LoadGame(state)) {
         // If a saved game is successfully loaded, print a message and resume the game
         cout << "Resuming saved game...\n";
-p
+
         while (!state.shotgun.isEmpty() && state.player.getCurrentLives() > 0 && state.dealer.getCurrentLives() > 0) {
             printStatus(state.player, state.dealer, state.shotgun);
 
@@ -178,7 +181,6 @@ p
             SaveGame(state);
         }
 
-        // Determine the outcome of the game
         Statistics stats = GetStat();
         if (state.player.getCurrentLives() <= 0) {
             cout << "You lost all your lives. Game over.\n";
@@ -192,7 +194,6 @@ p
         }
         SaveStat(stats);
 
-        // Return to the main menu after finishing the game
         ReturnToMainMenu();
     } else {
         // If no saved game exists, notify the user and start a new game
