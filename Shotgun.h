@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include "Shell.h"
+#include <fstream>
 
 class Shotgun {
 public:
@@ -46,6 +47,9 @@ public:
 
     /// @brief Default destructor.
     virtual ~Shotgun() = default;
+
+    void save(std::ofstream& fout) const;
+    void load(std::ifstream& fin);
 
 private:
     /// @brief The following variables should not be accessed from other .cpp files. Use the public functions instead.
