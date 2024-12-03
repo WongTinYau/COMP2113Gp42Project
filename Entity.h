@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include <string>
+#include <fstream>
 
 class Inventory;
 
