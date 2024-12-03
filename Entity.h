@@ -50,6 +50,10 @@ public:
     /// @brief Default destructor.
     virtual ~Entity() = default;
 
+    // Save and Load the Entity state
+    void save(std::ofstream& fout) const;
+    void load(std::ifstream& fin);
+
 private:
     /// @brief The following variables should not be accessed from other .cpp files. Use the public functions instead.
     std::string m_displayName;
