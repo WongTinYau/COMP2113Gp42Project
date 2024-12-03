@@ -6,6 +6,7 @@
 #include "CppDemonLevel.h"
 #include "Cutscene.h"
 #include "newstats.h"
+#include "SaveLoad.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ void main_menu();
 void LevelSelectionMenu();
 void HelpMenu();
 void HardResetMenu();
+void LoadGameMenu();
 void ReturnToMainMenu();
 
 void ReturnToMainMenu(){
@@ -51,15 +53,44 @@ void LevelSelectionMenu(){
     while (validSelection == false){
         cin >> Selection;
         if (Selection == "1" || Selection == "(1)"){
-            validSelection = true;
-            cutsceneO1();
-            RussianDudeLevel();
-        }
+            
+            // Prompt for New Game or Load Game
+            cout << "Enter (n) for New Game or (c) to Continue Game: ";
+            char choice;
+            cin >> choice;
+            if (choice == 'n' || choice == 'N') {
+                cutsceneO1();
+                
+                // Start a new game
+                RussianDudeLevelWithSaveSupport(false);
+            } else if (choice == 'c' || choice == 'C') {
+
+                // Continue saved game
+                RussianDudeLevelWithSaveSupport(true);
+            } else {
+                cout << "Invalid choice. Returning to main menu...\n";
+                main_menu();
+            }
         else if (Selection == "2" || Selection == "(2)"){
             validSelection = true;
-            cutsceneO2();
-            CppDemonLevel();
-        }
+            
+            // Prompt for New Game or Continue Game
+            cout << "Enter (n) for New Game or (c) to Continue Game: ";
+            char choice;
+            cin >> choice;
+            if (choice == 'n' || choice == 'N') {
+                cutsceneO2();
+                
+                // Start a new game
+                CppDemonLevelWithSaveSupport(false);
+            } else if (choice == 'c' || choice == 'C') {
+
+                // Continue saved game
+                CppDemonLevelWithSaveSupport(true);e
+            } else {
+                cout << "Invalid choice. Returning to main menu...\n";
+                main_menu();
+            }
         else if (Selection == "r" || Selection == "(r)" || Selection == "R"){
             validSelection = true;
             main_menu();
@@ -72,6 +103,29 @@ void LevelSelectionMenu(){
         }
     }
 }
+
+void LoadGameMenu() {
+    
+    // Load the saved game state
+    GameState state;
+    if (LoadGame(state)) {
+        cout << "Resuming saved game...\n";
+
+        // Determine the level based on the saved state
+        if (state.level == "RussianDude") {
+            RussianDudeLevelWithSaveSupport(true);  // Resume Russian Dude Level
+        } else if (state.level == "CppDemon") {
+            CppDemonLevelWithSaveSupport(true);    // Resume C++ Demon Level
+        } else {
+            cout << "Error: Unknown level in saved game. Returning to main menu.\n";
+            main_menu();
+        }
+    } else {
+        cout << "No saved game found. Returning to main menu.\n";
+        main_menu();
+    }
+}
+
 
 void HelpMenu(){
     cout << string(30, '\n');
@@ -150,8 +204,8 @@ void main_menu(){
             LevelSelectionMenu();
         }
         else if (userInput == "2" || userInput == "(2)"){
-            cout << "This feature is broken now, sorry!" << endl;
-            // Load/Continue game mechanics to be implemented
+            validInput = true;
+            LoadGameMenu();
         }
         else if (userInput == "3" || userInput == "(3)"){
             validInput = true;
