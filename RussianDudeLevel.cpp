@@ -160,3 +160,54 @@ void RussianDudeLevel(){
     
     ReturnToMainMenu();
 }
+
+void ResumeRussianDudeLevel() {
+    GameState state;
+
+    // Attempt to load the saved game state
+    if (LoadGame(state)) {
+        // If a saved game is successfully loaded, print a message and resume the game
+        cout << "Resuming saved game...\n";
+p
+        while (!state.shotgun.isEmpty() && state.player.getCurrentLives() > 0 && state.dealer.getCurrentLives() > 0) {
+            printStatus(state.player, state.dealer, state.shotgun);
+
+            state.isPlayerTurn = playTurn(state.isPlayerTurn, state.shotgun, state.player, state.dealer);
+
+            // Save the game after every turn
+            SaveGame(state);
+        }
+
+        // Determine the outcome of the game
+        Statistics stats = GetStat();
+        if (state.player.getCurrentLives() <= 0) {
+            cout << "You lost all your lives. Game over.\n";
+            stats.RussianLost++;
+        } else if (state.dealer.getCurrentLives() <= 0) {
+            cout << "The Dealer lost all their lives. You win!\n";
+            stats.RussianWon++;
+        } else {
+            cout << "Both the Player and the Dealer survived this round!\n";
+            stats.RussianDraw++;
+        }
+        SaveStat(stats);
+
+        // Return to the main menu after finishing the game
+        ReturnToMainMenu();
+    } else {
+        // If no saved game exists, notify the user and start a new game
+        cout << "No saved game found. Starting a new game instead...\n";
+        RussianDudeLevel();
+    }
+}
+
+// Start Game with Save/Load 
+void RussianDudeLevelWithSaveSupport(bool continueGame = false) {
+    if (continueGame) {
+        // Load and resume the saved game
+        ResumeRussianDudeLevel();
+    } else {
+        // Start a new game
+        RussianDudeLevel();
+    }
+}
