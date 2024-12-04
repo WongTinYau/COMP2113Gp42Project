@@ -13,9 +13,6 @@ public:
     /// @param maxSlots (int) The maximum slots of the entity (Default is 4).
     Inventory(int maxSlots = 4);
 
-    /// @brief Default constructor for Inventory.
-    Inventory() : m_maxSlots(4), m_items() {}
-
     /// @brief Adds an item to the inventory.
     /// @param item (Item) The item to be added to the inventory.
     /// @return (bool) Whether the item has been successfully added.
