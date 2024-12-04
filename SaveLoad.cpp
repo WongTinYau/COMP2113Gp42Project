@@ -59,8 +59,8 @@ bool LoadGame(GameState& state) {
     state.dealer.load(fin);
 
     // Load shotgun
-    fin.read(reinterpret_cast<char*>(&state.shotgun), sizeof(Shotgun));
-
+    state.shotgun.load(fin);
+    
     // Load turn order
     fin.read(reinterpret_cast<char*>(&state.isPlayerTurn), sizeof(bool));
 
