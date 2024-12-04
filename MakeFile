@@ -16,7 +16,8 @@ SRCS = CppDemonLevel.cpp \
        Shortgun.cpp \
        help.cpp \
        main.cpp \
-       newstats.cpp
+       newstats.cpp \
+       VanillaMode.cpp
 
 
 HEADERS = CppDemonLevel.h \
@@ -32,7 +33,8 @@ HEADERS = CppDemonLevel.h \
           Shortgun.h \
           help.h \
           main.h \
-          newstats.h
+          newstats.h \
+          VanillaMode.h
 
 
 OBJS = $(SRCS:.cpp=.o)

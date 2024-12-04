@@ -1,6 +1,8 @@
 #ifndef STATS_H
 #define STATS_H
 
+//obsolete
+
 struct Statistics{
     int TotalGamesPlay ;
     int RussianWon ;

@@ -129,70 +129,6 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
     }
 }
 
-bool playTurnVillian(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& dealer) {
-    if (isPlayerTurn) {
-        cout << "It is now your turn, no item can be used in the Villian mode." << endl;
-
-        cout << "Choose your action: shoot yourself (s) or shoot the Dealer (d): ";
-        char choice;
-        cin >> choice;
-
-        if (choice == 's') {
-            pair<Shell, int> result = shotgun.shoot();
-            cout << "You pull the trigger on yourself...\n";
-            if (result.first == Shell::LIVE) {
-                cout << "BANG! You lose a life.\n";
-                player.damage(result.second);
-            } else {
-                cout << "Click. It's a blank.\n";
-            }
-        } else if (choice == 'd') {
-            pair<Shell, int> result = shotgun.shoot();
-            cout << "You pull the trigger on the Dealer...\n";
-            if (result.first == Shell::LIVE) {
-                cout << "BANG! The Dealer loses a life.\n";
-                dealer.damage(result.second);
-            } else {
-                cout << "Click. It's a blank.\n";
-            }
-        }
-        if (dealer.getPunishedRounds() > 0) {
-           dealer.reducePunishedRounds(1);
-           return true;
-        } else return false;
-        } else {
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<int> dist(0, 2);
-        int choice = dist(gen);
-
-        if (choice == 0) {
-            pair<Shell, int> result = shotgun.shoot();
-            cout << "The Dealer pulls the trigger on themselves...\n";
-            if (result.first == Shell::LIVE) {
-                cout << "BANG! The Dealer loses a life.\n";
-                dealer.damage(result.second);
-            } else {
-                cout << "Click. It's a blank.\n";
-            }
-
-        } else if (choice == 1) {
-            pair<Shell, int> result = shotgun.shoot();
-            cout << "The Dealer pulls the trigger on you...\n";
-            if (result.first == Shell::LIVE) {
-                cout << "BANG! You lose a life.\n";
-                player.damage(result.second);
-            } else {
-                cout << "Click. It's a blank.\n";
-            }
-        } 
-        if (player.getPunishedRounds() > 0) {
-            player.reducePunishedRounds(1);
-            return false;
-        } else return true;
-    }
-}
-
 void RussianDudeLevel(){
     cout << "Russian Dude level entered successfully!\n" << endl;
     
@@ -202,22 +138,10 @@ void RussianDudeLevel(){
     player->getInventory().addRandomItems(4);
     dealer->getInventory().addRandomItems(4);
 
-    cout<<"Choose mode: normal mode (1), Villian mode (2)"<<endl;
-    int mode; 
-    cin>>mode;
-    if (mode==1){
-        bool isPlayerTurn = true;
-        while (!shotgun->isEmpty() && player->getCurrentLives() > 0 && dealer->getCurrentLives() > 0) {
+    bool isPlayerTurn = true;
+    while (!shotgun->isEmpty() && player->getCurrentLives() > 0 && dealer->getCurrentLives() > 0) {
         printStatus(*player, *dealer, *shotgun);
         isPlayerTurn = playTurn(isPlayerTurn, *shotgun, *player, *dealer);
-        }
-    }
-    if (mode ==2){
-        bool isPlayerTurn = true;
-        while (!shotgun->isEmpty() && player->getCurrentLives() > 0 && dealer->getCurrentLives() > 0) {
-        printStatus(*player, *dealer, *shotgun);
-        isPlayerTurn = playTurnVillian(isPlayerTurn, *shotgun, *player, *dealer);
-        }
     }
 
     Statistics stats = GetStat();

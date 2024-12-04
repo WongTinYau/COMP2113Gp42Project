@@ -6,6 +6,8 @@
 #include "main.h"
 using namespace std;
 
+// obsolete
+
 void SaveStat(const Statistics&stat){
     ofstream fout("stat.txt");
     fout<< "Total Game Played:"<<stat.TotalGamesPlay<<"\n";

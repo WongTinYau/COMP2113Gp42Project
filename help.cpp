@@ -88,6 +88,14 @@ void ItemsHelp(){
     ReturnToHelpMenu();
 }
 
+void VanillaHelp(){
+    cout << "\nVanilla Mode is basically Russian Dude level but without items." << endl;
+    cout << "Moreover, neither statistics nor game progress is saved in this mode." << endl;
+    cout << "So feel free to shoot around!\n" << endl;
+    cout << "Now you will understand why items makes the game a lot better (lol)" << endl;
+    ReturnToHelpMenu();
+}
+
 void ReturnToHelpMenu(){
     string Input;
     cout << "\nEnter any key to return to help menu: ";

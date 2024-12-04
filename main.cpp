@@ -4,6 +4,7 @@
 #include "help.h"
 #include "RussianDudeLevel.h"
 #include "CppDemonLevel.h"
+#include "VanillaMode.h"
 #include "Cutscene.h"
 #include "GameState.h"
 #include "newstats.h"
@@ -48,6 +49,7 @@ void LevelSelectionMenu(){
     else {
         cout << "Enter (2) for C++ Demon" << endl;
     }
+    cout << "Enter (3) for Vanilla mode" << endl;
     cout << "Enter (r) to return to main menu" << endl;
     string Selection;
     bool validSelection = false;
@@ -94,6 +96,10 @@ void LevelSelectionMenu(){
                 main_menu();
             }
         }
+        else if (Selection == "3" || Selection == "(3)"){
+            validSelection = true;
+            VanillaMode();
+        }
         else if (Selection == "r" || Selection == "(r)" || Selection == "R"){
             validSelection = true;
             main_menu();
@@ -102,6 +108,7 @@ void LevelSelectionMenu(){
             cout << "Invalid User Input. Please try again." << endl;
             cout << "Enter (1) for Russian Dude" << endl;
             cout << "Enter (2) for C++ Demon" << endl;
+            cout << "Enter (3) for Vanilla mode" << endl;
             cout << "Enter (r) to return to main menu" << endl;
         }
     }
@@ -137,6 +144,7 @@ void HelpMenu(){
     cout << "Enter (2) for Supply phase" << endl;
     cout << "Enter (3) for Item phase" << endl;
     cout << "Enter (4) for Shooting phase" << endl;
+    cout << "Enter (5) for Vanilla Mode" << endl;
     cout << "Enter (r) to return to main menu" << endl;
     string Selection;
     bool validSelection = false;
@@ -158,6 +166,10 @@ void HelpMenu(){
             validSelection = true;
             ShootHelp();
         }
+        else if (Selection == "5" || Selection == "(5)"){
+            validSelection = true;
+            VanillaHelp();
+        }
         else if (Selection == "r" || Selection == "(r)" || Selection == "R"){
             validSelection = true;
             main_menu();
@@ -168,6 +180,7 @@ void HelpMenu(){
             cout << "Enter (2) for Supply phase" << endl;
             cout << "Enter (3) for Item phase" << endl;
             cout << "Enter (4) for Shooting phase" << endl;
+            cout << "Enter (5) for Vanilla Mode" << endl;
             cout << "Enter (r) to return to main menu" << endl;
         }
     }

@@ -3,6 +3,7 @@
 
 void main_menu();
 void LevelSelectionMenu();
+void LoadGameMenu();
 void HelpMenu();
 void HardResetMenu();
 void ReturnToMainMenu();
