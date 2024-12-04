@@ -16,6 +16,7 @@
 #include "newstats.h"
 #include "GameState.h"
 #include "SaveLoad.h"
+#include <chrono>
 
 using namespace std;
 
@@ -130,7 +131,10 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
 }
 
 void RussianDudeLevel(){
+    using namespace std::chrono;
     cout << "Russian Dude level entered successfully!\n" << endl;
+
+    auto startTime = high_resolution_clock::now();
     
     Shotgun* shotgun = new Shotgun(2, 6, 1);
     Entity* player = new Entity("Player", 2, 4);
@@ -155,6 +159,10 @@ void RussianDudeLevel(){
         cout << "Both the Player and the Dealer have survived this round!\n";
         stats.RussianDraw++;
     }
+    auto endTime = high_resolution_clock::now();
+    auto duration = duration_cast<seconds>(endTime - startTime);
+    long playTimeinSeconds = duration.count();
+    stats.TotalTime += playTimeinSeconds;
     SaveStat(stats);
 
     delete shotgun;
