@@ -14,6 +14,15 @@ public:
     /// @param inventorySize (int) The maximum inventory slots that the entity has.
     Entity(std::string displayName, int maxLives, int inventorySize);
 
+    /// @brief Default constructor for Entity.
+    Entity() 
+        : m_displayName("Unnamed"), 
+          m_maxLives(0), 
+          m_currentLives(0), 
+          m_punishRounds(0), 
+          m_inventory(new Inventory()) {}    
+
+
     /// @brief Reduces the number of lives of the entity.
     /// @param amount (int) The amount of lives to be deducted
     /// @return (int) The number of lives of the entity after damaging the entity.
