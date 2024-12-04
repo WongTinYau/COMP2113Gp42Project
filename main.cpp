@@ -5,6 +5,7 @@
 #include "RussianDudeLevel.h"
 #include "CppDemonLevel.h"
 #include "Cutscene.h"
+#include "GameState.h"
 #include "newstats.h"
 #include "SaveLoad.h"
 
@@ -71,6 +72,7 @@ void LevelSelectionMenu(){
                 cout << "Invalid choice. Returning to main menu...\n";
                 main_menu();
             }
+        }
         else if (Selection == "2" || Selection == "(2)"){
             validSelection = true;
             
@@ -86,11 +88,12 @@ void LevelSelectionMenu(){
             } else if (choice == 'c' || choice == 'C') {
 
                 // Continue saved game
-                CppDemonLevelWithSaveSupport(true);e
+                CppDemonLevelWithSaveSupport(true);
             } else {
                 cout << "Invalid choice. Returning to main menu...\n";
                 main_menu();
             }
+        }
         else if (Selection == "r" || Selection == "(r)" || Selection == "R"){
             validSelection = true;
             main_menu();
@@ -112,9 +115,9 @@ void LoadGameMenu() {
         cout << "Resuming saved game...\n";
 
         // Determine the level based on the saved state
-        if (state.level == "RussianDude") {
+        if (state.currentLevel == "RussianDude") {
             RussianDudeLevelWithSaveSupport(true);  // Resume Russian Dude Level
-        } else if (state.level == "CppDemon") {
+        } else if (state.currentLevel == "CppDemon") {
             CppDemonLevelWithSaveSupport(true);    // Resume C++ Demon Level
         } else {
             cout << "Error: Unknown level in saved game. Returning to main menu.\n";

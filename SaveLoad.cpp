@@ -6,7 +6,7 @@
 void SaveGame(const GameState& state) {
     std::ofstream fout("savegame.dat", std::ios::binary);
     if (!fout) {
-        std::cout << "Error: Could not open save file!" << std::end1;
+        std::cout << "Error: Could not open save file!" << std::endl;
         return;
     }
   
