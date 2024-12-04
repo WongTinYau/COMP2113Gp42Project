@@ -202,10 +202,22 @@ void RussianDudeLevel(){
     player->getInventory().addRandomItems(4);
     dealer->getInventory().addRandomItems(4);
 
-    bool isPlayerTurn = true;
-    while (!shotgun->isEmpty() && player->getCurrentLives() > 0 && dealer->getCurrentLives() > 0) {
+    cout<<"Choose mode: normal mode (1), Villian mode (2)"<<endl;
+    int mode; 
+    cin>>mode;
+    if (mode==1){
+        bool isPlayerTurn = true;
+        while (!shotgun->isEmpty() && player->getCurrentLives() > 0 && dealer->getCurrentLives() > 0) {
         printStatus(*player, *dealer, *shotgun);
         isPlayerTurn = playTurn(isPlayerTurn, *shotgun, *player, *dealer);
+        }
+    }
+    if (mode ==2){
+        bool isPlayerTurn = true;
+        while (!shotgun->isEmpty() && player->getCurrentLives() > 0 && dealer->getCurrentLives() > 0) {
+        printStatus(*player, *dealer, *shotgun);
+        isPlayerTurn = playTurnVillian(isPlayerTurn, *shotgun, *player, *dealer);
+        }
     }
 
     Statistics stats = GetStat();
