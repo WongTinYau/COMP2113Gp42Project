@@ -1,0 +1,60 @@
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra -g
+
+
+EXEC = game
+
+
+SRCS = CppDemonLevel.cpp \
+       Cutscene.cpp \
+       Entity.cpp \
+       Inventory.cpp \
+       Item.cpp \
+       ItemType.cpp \
+       RussianDudeLevel.cpp \
+       SaveLoad.cpp \
+       Shortgun.cpp \
+       help.cpp \
+       main.cpp \
+       newstats.cpp
+
+
+HEADERS = CppDemonLevel.h \
+          Cutscene.h \
+          Entity.h \
+          Gamestate.h \
+          Inventory.h \
+          Item.h \
+          ItemType.h \
+          RussianDudeLevel.h \
+          SaveLoad.h \
+          Shell.h \
+          Shortgun.h \
+          help.h \
+          main.h \
+          newstats.h
+
+
+OBJS = $(SRCS:.cpp=.o)
+
+
+all: $(EXEC)
+
+
+$(EXEC): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+
+%.o: %.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+
+clean:
+	rm -f $(OBJS) $(EXEC)
+
+
+run: $(EXEC)
+	./$(EXEC)
+
+
+.PHONY: all clean run
