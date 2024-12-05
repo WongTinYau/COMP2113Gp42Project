@@ -67,13 +67,35 @@ void Shotgun::invertUpcomingShell() {
 }
 
 void Shotgun::save(std::ofstream& fout) const {
+    int liveShells = count(m_shotgun.begin(), m_shotgun.end(), Shell::LIVE);
+    int blankShells = count(m_shotgun.begin(), m_shotgun.end(), Shell::BLANK);
+    int remainingShells = m_shotgun.size();
+
     fout.write(reinterpret_cast<const char*>(&liveShells), sizeof(int));
     fout.write(reinterpret_cast<const char*>(&blankShells), sizeof(int));
     fout.write(reinterpret_cast<const char*>(&remainingShells), sizeof(int));
+
+    for (const Shell& shell : m_shotgun) {
+        fout.write(reinterpret_cast<const char*>(&shell), sizeof(Shell));
+    }
 }
 
 void Shotgun::load(std::ifstream& fin) {
+    int liveShells, blankShells, remainingShells;
     fin.read(reinterpret_cast<char*>(&liveShells), sizeof(int));
     fin.read(reinterpret_cast<char*>(&blankShells), sizeof(int));
     fin.read(reinterpret_cast<char*>(&remainingShells), sizeof(int));
+
+    m_shotgun.clear();
+    for (int i = 0; i < remainingShells; ++i) {
+        Shell shell;
+        fin.read(reinterpret_cast<char*>(&shell), sizeof(Shell));
+        m_shotgun.push_back(shell);
+    }
+
+    if (getUpcomingShell() == Shell::LIVE) {
+        m_damage = m_baseDamage;
+    } else {
+        m_damage = 0;
+    }
 }
