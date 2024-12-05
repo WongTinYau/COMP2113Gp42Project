@@ -55,13 +55,13 @@ Inventory& Entity::getInventory() {
     return *m_inventory;
 }
 
-void Entity::save(std::ofstream& fout) const{
+void Entity::save(std::ofstream& fout) const {
     size_t nameLength = m_displayName.size();
     fout.write(reinterpret_cast<const char*>(&nameLength), sizeof(size_t));
     fout.write(m_displayName.c_str(), nameLength);
     fout.write(reinterpret_cast<const char*>(&m_maxLives), sizeof(int));
     fout.write(reinterpret_cast<const char*>(&m_currentLives), sizeof(int));
-    m_inventory.save(fout);
+    m_inventory->save(fout); 
 }
 
 void Entity::load(std::ifstream& fin) {
@@ -71,6 +71,5 @@ void Entity::load(std::ifstream& fin) {
     fin.read(&m_displayName[0], nameLength);
     fin.read(reinterpret_cast<char*>(&m_maxLives), sizeof(int));
     fin.read(reinterpret_cast<char*>(&m_currentLives), sizeof(int));
-    m_inventory.load(fin);
+    m_inventory->load(fin);
 }
-
