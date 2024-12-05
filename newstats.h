@@ -35,7 +35,7 @@ struct Statistics{
 void InitializeStat(); // Create a new save file or reset current save
 Statistics GetStat(); // Get statistics from file
 void SaveStat(Statistics stats); // Write statistics into save file
-void PrintStat(Statistics stats);
+void PrintStat(Statistics stats); // Print out statistics
 
 
 #endif // NEWSTATS_H_INCLUDED

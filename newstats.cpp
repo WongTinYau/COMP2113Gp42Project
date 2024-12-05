@@ -18,7 +18,7 @@ struct Statistics{
     int RussianGames;
     int DemonGames;
 
-    //Constructor
+    // Constructor
     Statistics(int a, int b, int c, int d, int e, int f){
         RussianWon = a;
         RussianLost = b;
@@ -34,6 +34,10 @@ struct Statistics{
 };
 
 void InitializeStat(){
+    // Create a file "data.txt" to store game statistics
+    // Replaces the old "data.txt" if available
+    // Format: 6 integers on the same line, separated by ' '
+    // Content: stats.RussianWon stats.RussianLost stats.RussianDraw stats.DemonWon stats.DemonLost stats.TotalTime
     ofstream fout;
     fout.open("data.txt");
     if ( fout.fail() ) {
@@ -45,6 +49,8 @@ void InitializeStat(){
 }
 
 Statistics GetStat(){
+    // Get statistics from data.txt
+    // Return a struct object with type Statistics
     ifstream fin;
     fin.open("data.txt");
     if ( fin.fail() ) {
@@ -58,6 +64,7 @@ Statistics GetStat(){
 }
 
 void SaveStat(Statistics stats){
+    // Save statistics to data.txt
     ofstream fout;
     fout.open("data.txt");
     if ( fout.fail() ) {
@@ -69,6 +76,8 @@ void SaveStat(Statistics stats){
 }
 
 void PrintStat(Statistics stats){
+    // Print out statistics
+
     // derived statistics
     int TotalGames = stats.RussianWon + stats.RussianLost + stats.RussianDraw + stats.DemonWon + stats.DemonLost;
     int RussianGames = stats.RussianWon + stats.RussianLost + stats.RussianDraw;
@@ -77,23 +86,30 @@ void PrintStat(Statistics stats){
     cout << string(30, '\n');
     cout << "Statistics\n" << endl;
     cout << "Total game played: " << TotalGames << endl;
+    
     cout << "Play count of Russian Dude level: " << RussianGames << endl;
     cout << "Russian Dude level won: " << stats.RussianWon << endl;
     cout << "Russian Dude level lost: " << stats.RussianLost << endl;
     cout << "Russian Dude level drawn: " << stats.RussianDraw << endl;
+
+    // Handle exception caused by division by zero
     if (RussianGames == 0){
         cout << "Russian Dude level win %: " << "N/A" << endl;
     } else {
         cout << "Russian Dude level win %: " << (stats.RussianWon * 100 / RussianGames) << endl;
     }
+    
     cout << "Play count of C++ Demon level: " << DemonGames << endl;
     cout << "C++ Demon level won: " << stats.DemonWon << endl;
     cout << "C++ Demon level lost: " << stats.DemonLost << endl;
+    
+    // Handle exception caused by division by zero
     if (DemonGames == 0){
         cout << "C++ Demon level win %: " << "N/A" << endl;
     } else {
         cout << "C++ Demon level win %: " << (stats.DemonWon * 100 / DemonGames) << endl;
     }
+    
     cout << "Total time played: " << stats.TotalTime << " seconds" << endl;
 
     ReturnToMainMenu();

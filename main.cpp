@@ -30,6 +30,9 @@ void LevelSelectionMenu(){
     cout << string(30, '\n');
     cout << "Select a level to play" << endl;
     Statistics stats = GetStat();
+
+    // set background color of cleared level to bright green
+
     cout << "\033[102m";    //set background color to bright green
     cout << "(Cleared level)" << endl;
     cout << "\033[40m";     // set background color back to black
@@ -51,6 +54,7 @@ void LevelSelectionMenu(){
     }
     cout << "Enter (3) for Vanilla mode" << endl;
     cout << "Enter (r) to return to main menu" << endl;
+    
     string Selection;
     bool validSelection = false;
     while (validSelection == false){
@@ -253,10 +257,12 @@ void main_menu(){
 
 int main()
 {
+    // Check game data status
     ifstream file("data.txt");
     if (file.good()){
         cout << "Good file status!" << endl;
     } else{
+        // Create a new data.txt if the file doesn't exist or the file is corrupted
         InitializeStat();
     }
     main_menu();

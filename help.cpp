@@ -42,6 +42,7 @@ void GameplayHelp(){
 void ShootHelp(){
     cout << "\nWhen a player decides to shoot, the player can choose 1 of the following." << endl;
     cout << "Shoot yourself\tShoot the opponent\n" << endl;
+    // Describe possible scenarios after shooting
     cout << "Here are 4 possible scenarios in shooting phase." << endl;
     cout << "Case 1: Shoot yourself with a live shell" << endl;
     cout << "You lose life according to the current shell damage, and pass the turn to your opponent." << endl;
@@ -51,6 +52,7 @@ void ShootHelp(){
     cout << "Opponent lose life according to the current shell damage, and pass the turn to your opponent." << endl;
     cout << "Case 4: Shoot the opponent with a blank shell" << endl;
     cout << "Opponent lose no life, and pass the turn to your opponent.\n" << endl;
+    // Explain how damage is calculated
     cout << "How is shell damage calculated?" << endl;
     cout << "Base damage: live shell = 1, blank shell = 0" << endl;
     cout << "If saw is applied: shell damage = 2 x base damage.\n" << endl;
@@ -58,10 +60,12 @@ void ShootHelp(){
 }
 
 void SupplyHelp(){
-    cout << "\nSupply phase." << endl;
+    cout << "\nSupply phase.\n" << endl;
+    // Explain conditions for supply phase to occur
     cout << "Russian Dude level doesn't have this phase." << endl;
-    cout << "This phase is automatically skipped when there is shell left in shotgun." << endl;
-    cout << "i.e. Supply phase happens only if there is no shell left in the shotgun." << endl;
+    cout << "Supply phase happens if and only if there is no shell left in the shotgun," << endl;
+    cout << "else this phase is automatically skipped.\n" << endl;
+    // Explain what happens in supply phase
     cout << "The rifle is loaded randomly with live shells and blank shells." << endl;
     cout << "The number of live shells will be announced to both players." << endl;
     cout << "At the same time, both players should receive some random items in random quantity." << endl;
@@ -73,7 +77,9 @@ void SupplyHelp(){
 
 void ItemsHelp(){
     cout << "\nItem phase is a phase when a player decide to use items.\n" << endl;
-    cout << "A player can use as many items as available (except Saw)." << endl;
+    cout << "Please note that Vanilla mode doesn't have this phase." << endl;
+    cout << "A player can use as many items as available (except Saw).\n" << endl;
+    // List of items
     cout << "List of items that will appear during gameplay." << endl;
     cout << "Saw: X2 damage of the upcoming shot, use at most once per turn" << endl;
     cout << "Magnifying glass: Check whether the current shell is live or blank" << endl;
@@ -81,10 +87,11 @@ void ItemsHelp(){
     cout << "Heart: +1 life, cannot exceed life total" << endl;
     cout << "Handcuff: Apply to opponent, the applied player should skip 1 turn" << endl;
     cout << "Magnet: Steal a random item from another player\n" << endl;
+    // Inventory
     cout << "Inventory size" << endl;
     cout << "Russian Dude level: 4 (both players)" << endl;
     cout << "C++ Demon level: 8 (both players)" << endl;
-    cout << "Players cannot stack items beyond inventory size, so use items wisely!" << endl;
+    cout << "Players cannot stack items beyond inventory size, so use your items wisely!" << endl;
     ReturnToHelpMenu();
 }
 
