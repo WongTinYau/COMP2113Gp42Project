@@ -10,7 +10,7 @@
 ### Title: New Russian Roulette
 
 ### DEMO:
-(TBA)
+Click [here](https://connecthkuhk-my.sharepoint.com/personal/u3622293_connect_hku_hk/_layouts/15/stream.aspx?id=%2Fpersonal%2Fu3622293%5Fconnect%5Fhku%5Fhk%2FDocuments%2Fdemo%202%2E0%2Emp4&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&ga=1&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E2cd172de%2D6ca9%2D44e6%2D8cb6%2Dff8b86355a99)
 
 ### Introduction
 Have you heard of Russian Roulette? Instead of the original real-life death game,
@@ -28,23 +28,37 @@ However, shots can be either empty or full, the items each player receive are al
 
 You win if the opponent dies (live total <= 0).
 
+> [!IMPORTANT]
+> When entering commands, please refer strictly to the character indicated, and exclude ().
+
 Due to complex item & phase interactions, instead of listing them here (which will take > 50 lines), 
 we will recommend learning the details via gameplay.
 
-For more information, please refer to 
-* help.cpp (source code documentation)
-* The Help menu (in-game documentation)
+> [!TIP]
+> For more information, please refer to 
+> * help.cpp (source code documentation)
+> * The Help menu (in-game documentation)
 
 ### Libraries used
 Only standard C/C++ libraries are used.
 
 ## Compilation and execution
-(TBA)
+It is an easy 2-step process due to Makefile
+1. Type 'make'
+2. Type './game'
+
+Ignore those 'warning: comparison of integer expression with different signedness' lines,
+the game is perfectly functional.
 
 ## Code requirements
 1.	Generation of random event: Random bullet initialization, Random item allocation
-2.	Data structure for storing data: (TBA)
-3.	Dynamic memory management: (TBA)
+2.	Data structure for storing data:
+    * struct Gamestate: store game status for loading an unfinished game
+    * struct Statistics: store various game statistics (e.g. win rate, play time)
+3.	Dynamic memory management: The following objects are dynamically generated upon entering a level
+    * class Shotgun shotgun
+    * class Entity player
+    * class Entity dealer
 4.	File I/O: Separate txt files to store game data
     * data.txt: store game statistics
     * savegame.dat: store unfinished game
@@ -54,6 +68,8 @@ Only standard C/C++ libraries are used.
 1.	Level selection: Russian Dude, C++ Demon, Vanilla mode
 2.	Storyline: ideally achieved by playing Rissian Dude level first (and win it), then C++ Demon level
 3.	ASCII Art!
+    * Background color change when a level is beaten for at least once
+    * ASCII pictures in cutscenes
 
 ## FAQ
 Q: What are the differences between Russian Dude level and C++ Demon level?
