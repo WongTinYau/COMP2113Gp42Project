@@ -39,12 +39,17 @@ bool Shotgun::isEmpty() {
 }
 
 pair<Shell, int> Shotgun::shoot() {
+    if(isEmpty()) return make_pair(Shell::BLANK, 0);
     Shell shell = m_shotgun.back();
     m_shotgun.pop_back();
     int final_damage = getUpcomingDamage();
     m_tempDamage = 0;
-    if(getUpcomingShell() == Shell::LIVE) m_damage = m_baseDamage;
-    else m_damage = 0;
+    if(getUpcomingShell() == Shell::LIVE) {
+        m_damage = m_baseDamage;
+    }
+    else {
+        m_damage = 0;
+    }
     return make_pair(shell, final_damage);
 }
 

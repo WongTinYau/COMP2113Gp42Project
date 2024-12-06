@@ -27,7 +27,7 @@ public:
     bool isEmpty();
 
     /// @brief Fires the shotgun.
-    /// @return (pair<Shell, int>) Returns 1. The current shell (live or blank), and 2. The final number of lives to be deducted to the target.
+    /// @return (pair<Shell, int>) Returns 1. The current shell (live or blank), and 2. The final number of lives to be deducted to the target. If the current shell is blank, the damage returned will ALWAYS BE 0.
     std::pair<Shell, int> shoot();
     
     /// @brief Increases the extra damage of the shotgun (Extra lives to be deducted to the target after shooting). Note that the extra damage will be reset to 0 no matter what the upcoming shell is.
