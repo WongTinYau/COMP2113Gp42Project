@@ -19,13 +19,13 @@
 
 using namespace std;
 
-static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
+static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) { // prints status of player, dealer and shotgun
     cout << "------------------------------------------------------------\n";
     cout << "Player lives: " << player.getCurrentLives() << "/" << player.getMaxLives() << " | Dealer lives: " << dealer.getCurrentLives() << "/" << dealer.getMaxLives() << endl;
     cout << "Remaining shells: " << shotgun.getRemainingShells() << " | Remaining live shells: " << shotgun.getRemainingLiveShells() << endl;
 }
 
-int dealerChoose(Entity& dealer, int slotNumber, int chances) {
+int dealerChoose(Entity& dealer, int slotNumber, int chances) { // AI logic when there's no item to use. Takes dealer, slotNumber(for override), chances(for determining if shot self) as input. Outputs AI choice
 
     if (slotNumber == -1) {
         if (chances <= (6 + dealer.getCurrentLives() * 3) ) { // 9 - 30%
@@ -45,11 +45,11 @@ int dealerChoose(Entity& dealer, int slotNumber, int chances) {
     return 2;
 }
 
-int dealerUse(Entity& dealer, Entity& player, vector<Item>& dealerItemQueue, int& dealerNextChoice, int chances) {
+int dealerUse(Entity& dealer, Entity& player, vector<Item>& dealerItemQueue, int& dealerNextChoice, int chances) { // AI logic to pick what item to use, updates dealerNExtChoice and dealerNextChoice for combo use. Outputs AI slotNumber
     vector<Item> itemList = dealer.getInventory().getItems();
 
     if (dealerItemQueue.empty() and dealerNextChoice == -1) {
-        for (int i = 0; i < itemList.size(); i++) {
+        for (size_t i = 0; i < itemList.size(); i++) {
             Item item = itemList[i];
 
             switch (item.getType()) {
@@ -97,7 +97,7 @@ int dealerUse(Entity& dealer, Entity& player, vector<Item>& dealerItemQueue, int
     }
     else if (!dealerItemQueue.empty() and dealerNextChoice == -1) {
         while (!dealerItemQueue.empty()) {
-            for (int i = 0; i < itemList.size(); i++) {
+            for (size_t i = 0; i < itemList.size(); i++) {
                 Item item = itemList[i];
                 if (item.getType() == dealerItemQueue.back().getType()) {
                     dealerItemQueue.pop_back();
@@ -110,12 +110,12 @@ int dealerUse(Entity& dealer, Entity& player, vector<Item>& dealerItemQueue, int
     return dealerNextChoice;
 }
 
-bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& dealer, vector<Item>& dealerItemQueue, int& dealerNextChoice) {
+bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& dealer, vector<Item>& dealerItemQueue, int& dealerNextChoice) { // game turn logic
     if (isPlayerTurn) {
         if (!player.getInventory().getItemCount() == 0) {
             cout << "It is now your turn, you have the following items:\n";
             vector<Item> items = player.getInventory().getItems();
-            for (int i = 0; i != items.size(); i++) {
+            for (size_t i = 0; i != items.size(); i++) {
                 cout << "Slot " << i << ": " << toString(items[i].getType()) << endl;
             }
             cout << "You can have at most " << player.getInventory().getMaxInventorySlots() << " items.\n";
@@ -215,8 +215,7 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
             if (result.first == Shell::LIVE) {
                 cout << "BANG! The Dealer loses a life.\n";
                 dealer.damage(result.second);
-            }
-            else {
+            } else {
                 cout << "Click. It's a blank.\n";
                 cout << "The Dealer gets to go again.\n";
                 player.addPunishedRounds(1);
@@ -229,8 +228,7 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
             if (result.first == Shell::LIVE) {
                 cout << "BANG! You lose a life.\n";
                 player.damage(result.second);
-            }
-            else {
+            } else {
                 cout << "Click. It's a blank.\n";
             }
         }
@@ -273,7 +271,7 @@ bool playTurn(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity& deale
 }
 
 
-void CppDemonLevel(){
+void CppDemonLevel(){ // main game logic
     using namespace std::chrono;
     cout << "C++ Demon level entered successfully!\n";
     cout << "You and the Dealer will play to death.\n";
@@ -377,7 +375,7 @@ void ResumeCppDemonLevel() {
 }
 
 //Start Game with Save/Load
-void CppDemonLevelWithSaveSupport(bool continueGame = false) {
+void CppDemonLevelWithSaveSupport(bool continueGame) {
     if (continueGame) {
         ResumeCppDemonLevel();
     } else {
