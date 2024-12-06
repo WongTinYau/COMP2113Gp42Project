@@ -34,20 +34,20 @@ void LevelSelectionMenu(){
     // set background color of cleared level to bright green
 
     cout << "\033[102m";    //set background color to bright green
-    cout << "(Cleared level)" << endl;
-    cout << "\033[40m";     // set background color back to black
+    cout << "(Cleared level)";
+    cout << "\033[40m" << endl;     // set background color back to black
     if (stats.RussianWon > 0){
         cout << "\033[102m";    //set background color to bright green
-        cout << "Enter (1) for Russian Dude" << endl;
-        cout << "\033[40m";     // set background color back to black
+        cout << "Enter (1) for Russian Dude";
+        cout << "\033[40m" << endl;;     // set background color back to black
     }
     else {
         cout << "Enter (1) for Russian Dude" << endl;
     }
     if (stats.DemonWon > 0){
         cout << "\033[102m";    //set background color to bright green
-        cout << "Enter (2) for C++ Demon" << endl;
-        cout << "\033[40m";     // set background color back to black
+        cout << "Enter (2) for C++ Demon";
+        cout << "\033[40m" << endl;;     // set background color back to black
     }
     else {
         cout << "Enter (2) for C++ Demon" << endl;
