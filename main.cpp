@@ -195,6 +195,7 @@ void HardResetMenu(){
     cout << "\nAre you really sure to reset everything?" << endl;
     cout << "Enter 'YES' (without the ') to proceed." << endl;
     string command;
+    cin >> command;
     if (command == "YES"){
         InitializeStat();
     }

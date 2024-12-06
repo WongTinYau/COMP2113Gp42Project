@@ -52,7 +52,7 @@ Statistics GetStat(){
     // Get statistics from data.txt
     // Return a struct object with type Statistics
     ifstream fin;
-    fin.open("data.txt");
+    fin.open("data.txt", ios::out);
     if ( fin.fail() ) {
         cout << "Error in file opening!" << endl;
         exit(1);
