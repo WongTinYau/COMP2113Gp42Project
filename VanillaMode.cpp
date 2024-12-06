@@ -15,7 +15,8 @@
 using namespace std;
 
 static void printStatus(Entity& player, Entity& dealer, Shotgun& shotgun) {
-    cout << "Player lives: " << player.getCurrentLives() << " | Dealer lives: " << dealer.getCurrentLives() << endl;
+    cout << "------------------------------------------------------------\n";
+    cout << "Player lives: " << player.getCurrentLives() << "/" << player.getMaxLives() << " | Dealer lives: " << dealer.getCurrentLives() << "/" << dealer.getMaxLives() << endl;
     cout << "Remaining shells: " << shotgun.getRemainingShells() << " | Remaining live shells: " << shotgun.getRemainingLiveShells() << endl;
 }
 
@@ -35,6 +36,8 @@ bool playTurnVanilla(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity
                 player.damage(result.second);
             } else {
                 cout << "Click. It's a blank.\n";
+                cout << "Lucky, you get to go again.\n";
+                dealer.addPunishedRounds(1);
             }
         } else if (choice == 'd') {
             pair<Shell, int> result = shotgun.shoot();
@@ -64,6 +67,8 @@ bool playTurnVanilla(bool isPlayerTurn, Shotgun& shotgun, Entity& player, Entity
                 dealer.damage(result.second);
             } else {
                 cout << "Click. It's a blank.\n";
+                cout << "The Dealer gets to go again.\n";
+                player.addPunishedRounds(1);
             }
 
         } else if (choice == 1) {
