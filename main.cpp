@@ -132,11 +132,11 @@ void LoadGameMenu() {
             CppDemonLevelWithSaveSupport(true);    // Resume C++ Demon Level
         } else {
             cout << "Error: Unknown level in saved game. Returning to main menu.\n";
-            main_menu();
+            ReturnToMainMenu();
         }
     } else {
         cout << "No saved game found. Returning to main menu.\n";
-        main_menu();
+        ReturnToMainMenu();
     }
 }
 
@@ -202,7 +202,7 @@ void HardResetMenu(){
     else{
         cout << "Decision aborted, returning to main menu." << endl;
     }
-    main_menu();
+    ReturnToMainMenu();
 }
 
 void main_menu(){
@@ -264,8 +264,9 @@ int main()
         cout << "Good file status!" << endl;
     } else{
         // Create a new data.txt if the file doesn't exist or the file is corrupted
+        cout << "data.txt either doesn't exist or corrupted, now creating a new one." << endl;
         InitializeStat();
     }
-    main_menu();
+    ReturnToMainMenu();
     return 0;
 }
